@@ -17,7 +17,7 @@ public class EnderecoDAO {
     private Connection conn;
     private PreparedStatement ps;
     
-    public int cadastrar(Endereco e) throws SQLException{
+    public int cadastrar(Endereco e) throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();

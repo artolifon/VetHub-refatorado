@@ -1,5 +1,6 @@
 package vethub.service;
 
+import java.sql.SQLException;
 import vethub.model.Usuario;
 import java.util.List;
 import javax.swing.JTable;
@@ -13,28 +14,28 @@ import vethub.repository.UsuarioDAO;
 public class UsuarioService {
     private final UsuarioDAO usuarioDao = new UsuarioDAO();
     
-    public Usuario validar(String login, String senha){
+    public Usuario validar(String login, String senha) throws ClassNotFoundException, SQLException{
         Usuario usuario = usuarioDao.validar(login, senha);
         return usuario;
     }
     
-    public void cadastrar(Usuario usuario){
+    public void cadastrar(Usuario usuario) throws ClassNotFoundException, SQLException{
         usuarioDao.cadastrar(usuario);
     }
     
-    public void  criarAcesso(Usuario usuario){
+    public void  criarAcesso(Usuario usuario) throws ClassNotFoundException, SQLException{
         usuarioDao.criarAcesso(usuario);
     }
     
-    public List<Usuario> buscarTodos(){
+    public List<Usuario> buscarTodos() throws ClassNotFoundException, SQLException{
         return usuarioDao.buscarTodos();
     }
     
-    public void editar(Usuario usuario){
+    public void editar(Usuario usuario) throws ClassNotFoundException, SQLException{
         usuarioDao.editar(usuario);
     }
     
-    public void excluir(int id){
+    public void excluir(int id) throws ClassNotFoundException, SQLException{
         usuarioDao.excluir(id);
     }
     
@@ -55,27 +56,27 @@ public class UsuarioService {
         }
     }
     
-    public int contarTodos(){
+    public int contarTodos() throws ClassNotFoundException, SQLException{
         return usuarioDao.contarTodos();
     }
     
-    public int contarGerentes(){
+    public int contarGerentes() throws ClassNotFoundException, SQLException{
         return usuarioDao.contarGerentes();
     }
     
-    public int contarAtendentes(){
+    public int contarAtendentes() throws ClassNotFoundException, SQLException{
         return usuarioDao.contarAtendentes();
     }
     
-    public int contarVeterinarios(){
+    public int contarVeterinarios() throws ClassNotFoundException, SQLException{
         return usuarioDao.contarVeterinarios();
     }
     
-    public List<Usuario> filtrar(String nome, String cargo){
+    public List<Usuario> filtrar(String nome, String cargo) throws ClassNotFoundException, SQLException{
         return usuarioDao.filtrar(nome, cargo);
     }
     
-    public Usuario buscarPorId(int id){
+    public Usuario buscarPorId(int id) throws ClassNotFoundException, SQLException{
         return usuarioDao.buscarPorId(id);
     }
 }

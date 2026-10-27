@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class EnderecoService {
     EnderecoDAO enderecoDao = new EnderecoDAO();
     
-    public int cadastrar(Endereco endereco) throws SQLException{
+    public int cadastrar(Endereco endereco) throws ClassNotFoundException, SQLException{
         return enderecoDao.cadastrar(endereco);
     }
 }

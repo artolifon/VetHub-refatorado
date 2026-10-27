@@ -1,5 +1,6 @@
 package vethub.view;
 
+import java.sql.SQLException;
 import vethub.model.Animal;
 import vethub.model.Cliente;
 import java.util.List;
@@ -34,8 +35,16 @@ public class TelaClientes extends javax.swing.JFrame {
         
         lblUsuario.setText(usuario.getNome());
         
-        clientes = clienteService.buscarTodos();
-        clienteService.preencherTabela(tbl, clientes);
+        try{
+            clientes = clienteService.buscarTodos();
+            clienteService.preencherTabela(tbl, clientes); 
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+        }
         
         menuService.carregarMenu(btn7);
     
@@ -973,10 +982,18 @@ public class TelaClientes extends javax.swing.JFrame {
         
         int clienteId = clientes.get(i).getId();
         
-        Cliente cliente = clienteService.buscarPorId(clienteId);
+        try{
+            Cliente cliente = clienteService.buscarPorId(clienteId);
+            new TelaPerfilCliente(usuario, cliente).setVisible(true);
+            this.dispose();
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+        }
         
-        new TelaPerfilCliente(usuario, cliente).setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_btnPerfilActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -984,10 +1001,19 @@ public class TelaClientes extends javax.swing.JFrame {
         
         int clienteId = clientes.get(i).getId();
         
-        Cliente cliente = clienteService.buscarPorId(clienteId);
+        try{
+            Cliente cliente = clienteService.buscarPorId(clienteId);
         
-        new TelaEditarCliente(usuario, cliente).setVisible(true);
-        this.dispose();
+            new TelaEditarCliente(usuario, cliente).setVisible(true);
+            this.dispose();
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+        }
+        
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void lblSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSairMouseClicked
@@ -1005,7 +1031,15 @@ public class TelaClientes extends javax.swing.JFrame {
                 
                 int linha = tbl.getSelectedRow();
                 int id = clientes.get(linha).getId();
-                clienteService.excluir(id);
+                try{
+                    clienteService.excluir(id);
+                } catch(ClassNotFoundException | SQLException e){
+                    System.out.println(e.getMessage());
+                    JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+                } catch (Exception e){
+                    System.out.println(e.getMessage());
+                    JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+                }
             }
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
@@ -1063,8 +1097,12 @@ public class TelaClientes extends javax.swing.JFrame {
             clientes = clienteService.filtrarPorNome(busca);
             clienteService.preencherTabela(tbl, clientes);  
             
-        } catch(Exception e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
         }
     }//GEN-LAST:event_txtClienteCaretUpdate
     

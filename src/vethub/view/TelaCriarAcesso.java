@@ -1,5 +1,6 @@
 package vethub.view;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
 import vethub.model.Animal;
@@ -917,8 +918,12 @@ public class TelaCriarAcesso extends javax.swing.JFrame {
                 new TelaUsuarios(usuario).setVisible(true);
                 this.dispose();
             }
-        } catch(Exception e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 

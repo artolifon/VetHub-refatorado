@@ -1,7 +1,9 @@
 package vethub.view;
 
+import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.swing.JOptionPane;
 import vethub.model.Animal;
 import vethub.model.Cliente;
 import vethub.model.Endereco;
@@ -41,42 +43,50 @@ public class TelaPainel extends javax.swing.JFrame {
         }
         
         ProcedimentoService procedimentoService = new ProcedimentoService();
-        List<Procedimento> agendamentos = procedimentoService.mostrarUltimos();
         
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        try{
+            List<Procedimento> agendamentos = procedimentoService.mostrarUltimos();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         
-        if(agendamentos.size() >= 2){
-            Procedimento a1 = agendamentos.get(0);
-            Procedimento a2 = agendamentos.get(1);
+            if(agendamentos.size() >= 2){
+                Procedimento a1 = agendamentos.get(0);
+                Procedimento a2 = agendamentos.get(1);
 
-            lblNome1.setText(a1.getAnimal().getNome() + " (" + a1.getAnimal().getTutor().getNome() + ")");
-            lblData1.setText(a1.getDataHora().format(formatter));
-            lblProcedimento1.setText(a1.getTipo());
+                lblNome1.setText(a1.getAnimal().getNome() + " (" + a1.getAnimal().getTutor().getNome() + ")");
+                lblData1.setText(a1.getDataHora().format(formatter));
+                lblProcedimento1.setText(a1.getTipo());
 
-            lblNome2.setText(a2.getAnimal().getNome() + " (" + a2.getAnimal().getTutor().getNome() + ")");
-            lblData2.setText(a2.getDataHora().format(formatter));
-            lblProcedimento2.setText(a2.getTipo());
-        
-        } else if (agendamentos.size() == 1){
+                lblNome2.setText(a2.getAnimal().getNome() + " (" + a2.getAnimal().getTutor().getNome() + ")");
+                lblData2.setText(a2.getDataHora().format(formatter));
+                lblProcedimento2.setText(a2.getTipo());
+
+            } else if (agendamentos.size() == 1){
+
+                Procedimento a1 = agendamentos.get(0);
+
+                lblNome1.setText(a1.getAnimal().getNome());
+                lblData1.setText(a1.getDataHora().format(formatter));
+                lblProcedimento1.setText(a1.getTipo());
+            } else {
+                lblNome1.setText("Nenhum agendamento.");
+            }
+            AnimalService animalService = new AnimalService();
+            lblTotalAnimais.setText(String.valueOf(animalService.contarTodos()));
+            lblCaes.setText(String.valueOf(animalService.contarCaes()));
+            lblGatos.setText(String.valueOf(animalService.contarGatos())); 
             
-            Procedimento a1 = agendamentos.get(0);
+            ClienteService clienteService = new ClienteService();
+            lblTotalClientes.setText(String.valueOf(clienteService.contarTodos()));
+            lblCom.setText(String.valueOf(clienteService.contarComPets()));
+            lblSem.setText(String.valueOf(clienteService.contarSemPets()));
             
-            lblNome1.setText(a1.getAnimal().getNome());
-            lblData1.setText(a1.getDataHora().format(formatter));
-            lblProcedimento1.setText(a1.getTipo());
-        } else {
-            lblNome1.setText("Nenhum agendamento.");
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
         }
-        
-        AnimalService animalService = new AnimalService();
-        lblTotalAnimais.setText(String.valueOf(animalService.contarTodos()));
-        lblCaes.setText(String.valueOf(animalService.contarCaes()));
-        lblGatos.setText(String.valueOf(animalService.contarGatos()));
-        
-        ClienteService clienteService = new ClienteService();
-        lblTotalClientes.setText(String.valueOf(clienteService.contarTodos()));
-        lblCom.setText(String.valueOf(clienteService.contarComPets()));
-        lblSem.setText(String.valueOf(clienteService.contarSemPets()));
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

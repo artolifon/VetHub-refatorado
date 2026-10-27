@@ -1,5 +1,6 @@
 package vethub.service;
 
+import java.sql.SQLException;
 import vethub.model.Cliente;
 import java.util.List;
 import java.util.ArrayList;
@@ -19,27 +20,27 @@ public class ClienteService {
         clienteDao = new ClienteDAO();
     }
     
-    public List<Cliente> buscarTodos(){
+    public List<Cliente> buscarTodos() throws ClassNotFoundException, SQLException{
         return clienteDao.buscarTodos();
     }
     
-    public Cliente buscarPorId(int id){
+    public Cliente buscarPorId(int id) throws ClassNotFoundException, SQLException{
         return clienteDao.buscarPorId(id);
     }
     
-    public List<Animal> filtrarAnimais(Cliente tutor){
+    public List<Animal> filtrarAnimais(Cliente tutor) throws ClassNotFoundException, SQLException{
         return clienteDao.filtrarAnimais(tutor);
     }
     
-    public void cadastrar(Cliente cliente){
+    public void cadastrar(Cliente cliente) throws ClassNotFoundException, SQLException{
         clienteDao.cadastrar(cliente);
     }
     
-    public void editar(Cliente cliente){
+    public void editar(Cliente cliente) throws ClassNotFoundException, SQLException{
         clienteDao.editar(cliente);
     }
     
-    public void excluir(int id){
+    public void excluir(int id) throws ClassNotFoundException, SQLException{
         clienteDao.excluir(id);
     }
     
@@ -60,19 +61,19 @@ public class ClienteService {
         }
     }
     
-    public int contarTodos(){
+    public int contarTodos()throws ClassNotFoundException, SQLException{
         return clienteDao.contarTodos();
     }
     
-    public int contarComPets(){
+    public int contarComPets() throws ClassNotFoundException, SQLException{
         return clienteDao.contarComPets();
     }
     
-    public int contarSemPets(){
+    public int contarSemPets() throws ClassNotFoundException, SQLException{
         return clienteDao.contarSemPets();
     }
     
-    public List<Cliente> filtrarPorNome(String nome){
+    public List<Cliente> filtrarPorNome(String nome) throws ClassNotFoundException, SQLException{
         return clienteDao.filtrarPorNome(nome);
     }
 }

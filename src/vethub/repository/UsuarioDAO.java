@@ -23,7 +23,7 @@ public class UsuarioDAO {
     private ResultSet rs;
     
     
-    public void cadastrar(Usuario u){
+    public void cadastrar(Usuario u) throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -59,7 +59,7 @@ public class UsuarioDAO {
         }
      }
     
-    public Usuario validar(String login, String senha){
+    public Usuario validar(String login, String senha) throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -113,7 +113,7 @@ public class UsuarioDAO {
         return u;
     }
     
-    public void criarAcesso(Usuario usuario){
+    public void criarAcesso(Usuario usuario) throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -140,7 +140,7 @@ public class UsuarioDAO {
         }
     }
     
-    public List<Usuario> buscarTodos(){
+    public List<Usuario> buscarTodos() throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -189,7 +189,7 @@ public class UsuarioDAO {
         return usuarios;
     }
     
-    public Usuario buscarPorId(int id){
+    public Usuario buscarPorId(int id) throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -236,7 +236,7 @@ public class UsuarioDAO {
         return u;
     }
     
-    public List<Usuario> filtrar(String nome, String cargo){
+    public List<Usuario> filtrar(String nome, String cargo) throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -289,7 +289,7 @@ public class UsuarioDAO {
         return usuarios;
     }
     
-    public void editar(Usuario u){
+    public void editar(Usuario u) throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -326,7 +326,7 @@ public class UsuarioDAO {
         
     }
     
-    public void excluir(int id){
+    public void excluir(int id) throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -352,7 +352,7 @@ public class UsuarioDAO {
        
     }
     
-    public int contarTodos(){
+    public int contarTodos() throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -383,7 +383,7 @@ public class UsuarioDAO {
         return quantidade;
     }
     
-    public int contarGerentes(){
+    public int contarGerentes() throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -414,7 +414,7 @@ public class UsuarioDAO {
         return quantidade;
     }
     
-    public int contarAtendentes(){
+    public int contarAtendentes() throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -445,7 +445,7 @@ public class UsuarioDAO {
         return quantidade;
     }
     
-    public int contarVeterinarios(){
+    public int contarVeterinarios() throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();

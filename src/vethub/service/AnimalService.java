@@ -1,5 +1,6 @@
 package vethub.service;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Period;
 import vethub.model.Animal;
@@ -27,31 +28,31 @@ public class AnimalService {
         return idade.getYears();
     }
     
-    public void cadastrar(Animal animal){
+    public void cadastrar(Animal animal) throws ClassNotFoundException, SQLException{
         animalDao.cadastrar(animal);
     }
     
-    public List<Animal> buscarTodos(){
+    public List<Animal> buscarTodos() throws ClassNotFoundException, SQLException{
         return animalDao.buscarTodos();
     }
     
-    public Cliente selecionarTutor(int idTutor){
+    public Cliente selecionarTutor(int idTutor) throws ClassNotFoundException, SQLException{
         return animalDao.selecionarTutor(idTutor);
     }
     
-    public void excluir(int id){
+    public void excluir(int id) throws ClassNotFoundException, SQLException{
         animalDao.excluir(id);
     }
     
-    public void editar(Animal animal){
+    public void editar(Animal animal) throws ClassNotFoundException, SQLException{
         animalDao.editar(animal);
     }
     
-    public List<Animal> filtrarEspecie(String especie){
+    public List<Animal> filtrarEspecie(String especie) throws ClassNotFoundException, SQLException{
         return animalDao.filtrarEspecie(especie);
     }
     
-    public void preencherTabela(JTable table, List<Animal> lista, String tela){
+    public void preencherTabela(JTable table, List<Animal> lista, String tela) throws ClassNotFoundException, SQLException{
         if(lista == null){
             return;
         }
@@ -96,23 +97,23 @@ public class AnimalService {
         }
     }
     
-    public Animal buscarPorId(int id){
+    public Animal buscarPorId(int id) throws ClassNotFoundException, SQLException{
         return animalDao.buscarPorId(id);
     }
     
-    public List<Animal> filtrarPorNome(String nome){
+    public List<Animal> filtrarPorNome(String nome) throws ClassNotFoundException, SQLException{
         return animalDao.filtrarPorNome(nome);
     }
     
-    public int contarTodos(){
+    public int contarTodos() throws ClassNotFoundException, SQLException{
         return animalDao.contarTodos();
     }
     
-    public int contarCaes(){
+    public int contarCaes() throws ClassNotFoundException, SQLException{
         return animalDao.contarCaes();
     }
     
-    public int contarGatos(){
+    public int contarGatos() throws ClassNotFoundException, SQLException{
         return animalDao.contarGatos();
     }
 }

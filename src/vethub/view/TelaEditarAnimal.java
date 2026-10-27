@@ -1,5 +1,6 @@
 package vethub.view;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import vethub.model.Animal;
@@ -51,10 +52,19 @@ public class TelaEditarAnimal extends javax.swing.JFrame {
         cmbSexo.addItem("Macho");
         cmbSexo.addItem("Fêmea");
         
-        clientes = clienteService.buscarTodos();
-        for(Cliente tutor : clientes){
-            cmbTutor.addItem(tutor.getNome());
+        try{
+            clientes = clienteService.buscarTodos();
+            for(Cliente tutor : clientes){
+                cmbTutor.addItem(tutor.getNome());
+            }
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
         }
+        
         
         txtNome.setText(animal.getNome());
         txtRaca.setText(animal.getRaca());
@@ -1202,8 +1212,12 @@ public class TelaEditarAnimal extends javax.swing.JFrame {
                 }
             }
             
-        } catch(Exception e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
         }
         
         new TelaAnimais(usuario).setVisible(true);

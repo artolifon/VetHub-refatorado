@@ -1,5 +1,6 @@
 package vethub.view;
 
+import java.sql.SQLException;
 import vethub.model.Procedimento;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -1010,7 +1011,15 @@ public class TelaVerProcedimento extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         int confirmacao = JOptionPane.showConfirmDialog(null, "Você deseja excluir este registro?");
             if(confirmacao == 0){
-                procedimentoService.excluir(procedimento.getId());
+                try{
+                    procedimentoService.excluir(procedimento.getId());        
+                } catch(ClassNotFoundException | SQLException e){
+                    System.out.println(e.getMessage());
+                    JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+                } catch (Exception e){
+                    System.out.println(e.getMessage());
+                    JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+                }
             }
     }//GEN-LAST:event_jButton5ActionPerformed
 

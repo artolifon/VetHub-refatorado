@@ -1,5 +1,6 @@
 package vethub.view;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
 import vethub.model.Cliente;
@@ -50,7 +51,15 @@ public class TelaCadastrarAnimal extends javax.swing.JFrame {
         cmbSexo.addItem("Fêmea");
         cmbSexo.setSelectedIndex(-1);
         
-        clientes = clienteService.buscarTodos();
+        try{
+            clientes = clienteService.buscarTodos();
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+        }
         
         for(Cliente tutor : clientes){
             cmbTutor.addItem(tutor.getNome());
@@ -86,7 +95,15 @@ public class TelaCadastrarAnimal extends javax.swing.JFrame {
         cmbSexo.addItem("Fêmea");
         cmbSexo.setSelectedIndex(-1);
         
-        clientes = clienteService.buscarTodos();
+        try{
+            clientes = clienteService.buscarTodos(); 
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+        }
         
         for(Cliente tutor : clientes){
             cmbTutor.addItem(tutor.getNome());
@@ -1235,9 +1252,12 @@ public class TelaCadastrarAnimal extends javax.swing.JFrame {
                     new TelaAnimais(usuario).setVisible(true);
                 }
             }
-            
-        } catch(Exception e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 

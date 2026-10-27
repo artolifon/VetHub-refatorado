@@ -12,16 +12,11 @@ public class Conexao {
     private static String password = "us3gw1pc45i1"; 
     
     
-    public static Connection conectar(){
+    public static Connection conectar() throws ClassNotFoundException, SQLException{
         Connection conn = null;
         
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(url, user, password);
-            
-        } catch (ClassNotFoundException | SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Falha na conexão com o banco: "+ ex.getMessage());
-        }
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        conn = DriverManager.getConnection(url, user, password);
         
         return conn;
     }

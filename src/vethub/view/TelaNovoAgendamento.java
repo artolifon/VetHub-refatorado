@@ -1,5 +1,6 @@
 package vethub.view;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
@@ -47,8 +48,16 @@ public class TelaNovoAgendamento extends javax.swing.JFrame {
         
         inicializando = true;
         
-        animais = animalService.buscarTodos();
-        clientes = clienteService.buscarTodos();
+        try{
+            animais = animalService.buscarTodos();
+            clientes = clienteService.buscarTodos();
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+        }
         
         for(Cliente tutor : clientes){
             cmbTutor.addItem(tutor.getNome());
@@ -86,8 +95,16 @@ public class TelaNovoAgendamento extends javax.swing.JFrame {
         
         inicializando = true;
         
-        animais = animalService.buscarTodos();
-        clientes = clienteService.buscarTodos();
+        try{
+            animais = animalService.buscarTodos();
+            clientes = clienteService.buscarTodos(); 
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+        }
         
         for(Cliente tutor : clientes){
             cmbTutor.addItem(tutor.getNome());
@@ -124,8 +141,16 @@ public class TelaNovoAgendamento extends javax.swing.JFrame {
         
         menuService.carregarMenu(btn7);
         
-        animais = animalService.buscarTodos();
-        clientes = clienteService.buscarTodos();
+        try{
+            animais = animalService.buscarTodos();
+            clientes = clienteService.buscarTodos();
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+        }
         
         boolean inicializando = true;
         
@@ -1046,10 +1071,19 @@ public class TelaNovoAgendamento extends javax.swing.JFrame {
         int i = cmbAnimal.getSelectedIndex();
         
         if(cmbTutor.getSelectedIndex() == -1){
-            Cliente tutor = animalService.selecionarTutor(animais.get(i).getTutor().getId());
-            inicializando = true;
-            cmbTutor.setSelectedItem(tutor.getNome());
-            inicializando = false;
+            try{
+                Cliente tutor = animalService.selecionarTutor(animais.get(i).getTutor().getId());
+                inicializando = true;
+                cmbTutor.setSelectedItem(tutor.getNome());
+                inicializando = false;
+            } catch(ClassNotFoundException | SQLException e){
+                System.out.println(e.getMessage());
+                JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+                JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+            }
+            
         }
      
         
@@ -1063,7 +1097,16 @@ public class TelaNovoAgendamento extends javax.swing.JFrame {
         int i = cmbTutor.getSelectedIndex();
         
         List<Animal> animaisDoTutor = new ArrayList();
-        animaisDoTutor = clienteService.filtrarAnimais(clientes.get(i));
+        
+        try{
+            animaisDoTutor = clienteService.filtrarAnimais(clientes.get(i));
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+        }
         
         inicializando = true;
         
@@ -1129,8 +1172,12 @@ public class TelaNovoAgendamento extends javax.swing.JFrame {
                 this.dispose();
             }
             
-        } catch(Exception e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 

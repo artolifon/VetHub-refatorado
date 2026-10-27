@@ -27,7 +27,7 @@ public class ClienteDAO {
         this.clientes = new ArrayList();
     }
     
-    public List<Cliente> buscarTodos(){
+    public List<Cliente> buscarTodos() throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -72,7 +72,7 @@ public class ClienteDAO {
         return clientes;
     }
     
-    public Cliente buscarPorId(int id){
+    public Cliente buscarPorId(int id) throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -120,7 +120,7 @@ public class ClienteDAO {
         return c;
     }
     
-    public List<Animal> filtrarAnimais(Cliente tutor){
+    public List<Animal> filtrarAnimais(Cliente tutor) throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -167,7 +167,7 @@ public class ClienteDAO {
         return animais;
     }
     
-    public void cadastrar(Cliente c){
+    public void cadastrar(Cliente c) throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -198,7 +198,7 @@ public class ClienteDAO {
         }
     }
     
-    public void editar(Cliente c){
+    public void editar(Cliente c) throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -234,7 +234,7 @@ public class ClienteDAO {
         }
     }
     
-    public void excluir(int id){
+    public void excluir(int id) throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -259,7 +259,7 @@ public class ClienteDAO {
         }
     }
     
-    public int contarTodos(){
+    public int contarTodos() throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -290,7 +290,7 @@ public class ClienteDAO {
         return quantidade;
     }
     
-    public int contarComPets(){
+    public int contarComPets() throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -321,11 +321,11 @@ public class ClienteDAO {
         return quantidade;
     }
     
-    public int contarSemPets(){
+    public int contarSemPets() throws ClassNotFoundException, SQLException{
         return (contarTodos() - contarComPets());
     }
     
-    public List<Cliente> filtrarPorNome(String nome){
+    public List<Cliente> filtrarPorNome(String nome) throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();

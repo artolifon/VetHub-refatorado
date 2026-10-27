@@ -1,5 +1,6 @@
 package vethub.view;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
 import vethub.model.Animal;
@@ -52,10 +53,17 @@ public class TelaPerfilCliente extends javax.swing.JFrame {
         txtTelefone.setText(cliente.getTelefone());
         taEndereco.setText(cliente.getEndereco().toString());
         
-        animais = clienteService.filtrarAnimais(cliente);
+        try{
+            animais = clienteService.filtrarAnimais(cliente);
         
-        animalService.preencherTabela(tbl, animais, "cliente");
-       
+            animalService.preencherTabela(tbl, animais, "cliente");
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+        }
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -1263,12 +1271,21 @@ public class TelaPerfilCliente extends javax.swing.JFrame {
             if(confirmacao == 0){
                 int linha = tbl.getSelectedRow();
                 int id = animais.get(linha).getId();
-                animalService.excluir(id);
                 
-                animais.clear();
-                animais = clienteService.filtrarAnimais(cliente);
-                
-                animalService.preencherTabela(tbl, animais, "clientes");
+                try{
+                    animalService.excluir(id);
+
+                    animais.clear();
+                    animais = clienteService.filtrarAnimais(cliente);
+
+                    animalService.preencherTabela(tbl, animais, "clientes");
+                } catch(ClassNotFoundException | SQLException e){
+                    System.out.println(e.getMessage());
+                    JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+                } catch (Exception e){
+                    System.out.println(e.getMessage());
+                    JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+                }
             }
         }
     }//GEN-LAST:event_jButton11ActionPerformed
@@ -1319,14 +1336,23 @@ public class TelaPerfilCliente extends javax.swing.JFrame {
         int i = tbl.getSelectedRow();
         
         int animalId = animais.get(i).getId();
-        Animal animal = animalService.buscarPorId(animalId);
-            
-        if(usuario.getCargo().equals("VETERINARIO")){
+        
+        try{
+            Animal animal = animalService.buscarPorId(animalId);
+            if(usuario.getCargo().equals("VETERINARIO")){
             new TelaProntuario(usuario, animal).setVisible(true);
-            
-        } else {
-            new TelaNovoAgendamento(usuario, animal).setVisible(true);
+
+            } else {
+                new TelaNovoAgendamento(usuario, animal).setVisible(true);
+            }
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
         }
+        
     }//GEN-LAST:event_btnPrincipalActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -1354,10 +1380,19 @@ public class TelaPerfilCliente extends javax.swing.JFrame {
         
         int animalId = animais.get(i).getId();
         
-        Animal animal = animalService.buscarPorId(animalId);
+        try{
+            Animal animal = animalService.buscarPorId(animalId);
         
-        new TelaEditarAnimal(usuario, animal).setVisible(true);
-        this.dispose();
+            new TelaEditarAnimal(usuario, animal).setVisible(true);
+            this.dispose();
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+        }
+        
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed

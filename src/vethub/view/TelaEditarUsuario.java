@@ -1,5 +1,6 @@
 package vethub.view;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
 import vethub.model.Animal;
@@ -1082,17 +1083,21 @@ public class TelaEditarUsuario extends javax.swing.JFrame {
                     u.setEndereco(e);
                     
                     usuarioService.editar(u);
-                    
+                    new TelaUsuarios(usuario).setVisible(true);
+                    this.dispose();
                 }
                 
             }
             
-        } catch(Exception e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
         }
         
-        new TelaUsuarios(usuario).setVisible(true);
-        this.dispose();
+        
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void lblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseClicked

@@ -1,5 +1,6 @@
 package vethub.view;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import vethub.model.Animal;
 import java.time.format.DateTimeFormatter;
@@ -56,7 +57,15 @@ public class TelaProntuario extends javax.swing.JFrame {
         
         boolean inicializando = true;
         
-        this.veterinarios = usuarioService.filtrar("", "VETERINARIO");
+        try{
+            this.veterinarios = usuarioService.filtrar("", "VETERINARIO");
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+        }
         
         for(Usuario v : veterinarios){
             cmbResponsavel.addItem(v.getNome());
@@ -113,9 +122,17 @@ public class TelaProntuario extends javax.swing.JFrame {
         lblSexo.setText(animal.getSexo());
         lblTutor.setText(animal.getTutor().getNome());
         
-        procedimentos = procedimentoService.buscarPorAnimal(animal);
+        try{
+            procedimentos = procedimentoService.buscarPorAnimal(animal);
+            procedimentoService.preencherTabela(tbl, procedimentos);
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+        }
         
-        procedimentoService.preencherTabela(tbl, procedimentos);
         
         getRootPane().setDefaultButton(btnNovo);
         
@@ -1446,12 +1463,18 @@ public class TelaProntuario extends javax.swing.JFrame {
                 int linha = tbl.getSelectedRow();
                 int id = procedimentos.get(linha).getId();
                 
-                procedimentoService.excluir(id);
-                
-                procedimentos.clear();
-                procedimentos = procedimentoService.buscarPorAnimal(animal);
-                
-                procedimentoService.preencherTabela(tbl, procedimentos);
+                try{
+                    procedimentoService.excluir(id);
+                    procedimentos.clear();
+                    procedimentos = procedimentoService.buscarPorAnimal(animal);
+                    procedimentoService.preencherTabela(tbl, procedimentos);
+                } catch(ClassNotFoundException | SQLException e){
+                    System.out.println(e.getMessage());
+                    JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+                } catch (Exception e){
+                    System.out.println(e.getMessage());
+                    JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+                }
             }
         }
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -1502,11 +1525,20 @@ public class TelaProntuario extends javax.swing.JFrame {
             return;
         }
         int i = tbl.getSelectedRow();
-        Procedimento procedimento = procedimentoService.buscarPorId(procedimentos.get(i).getId());
         
-        new TelaEditarProcedimento(usuario, procedimento.getAnimal(), procedimento).setVisible(true);
+        try{
+            Procedimento procedimento = procedimentoService.buscarPorId(procedimentos.get(i).getId());
         
-        this.dispose();
+            new TelaEditarProcedimento(usuario, procedimento.getAnimal(), procedimento).setVisible(true);
+        
+            this.dispose();   
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+        }
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -1515,9 +1547,19 @@ public class TelaProntuario extends javax.swing.JFrame {
             return;
         }
         int i = tbl.getSelectedRow();
-        Procedimento procedimento = procedimentoService.buscarPorId(procedimentos.get(i).getId());
-        new TelaVerProcedimento(usuario, procedimento).setVisible(true);
-        this.dispose();
+        
+        try{
+            Procedimento procedimento = procedimentoService.buscarPorId(procedimentos.get(i).getId());
+            new TelaVerProcedimento(usuario, procedimento).setVisible(true);
+            this.dispose();
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+        }
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void txtDataCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtDataCaretUpdate
@@ -1548,8 +1590,17 @@ public class TelaProntuario extends javax.swing.JFrame {
                 
         
         procedimentos.clear();
-        procedimentos = procedimentoService.filtrarProntuario(animal.getId(), veterinarioId, data, status, tipo);
-        procedimentoService.preencherTabela(tbl, procedimentos);
+        try{
+            procedimentos = procedimentoService.filtrarProntuario(animal.getId(), veterinarioId, data, status, tipo);
+            procedimentoService.preencherTabela(tbl, procedimentos);
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+        }
+        
     }//GEN-LAST:event_txtDataCaretUpdate
 
     private void cmbProcedimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProcedimentoActionPerformed
@@ -1577,8 +1628,17 @@ public class TelaProntuario extends javax.swing.JFrame {
                 
         
         procedimentos.clear();
-        procedimentos = procedimentoService.filtrarProntuario(animal.getId(), veterinarioId, data, status, tipo);
-        procedimentoService.preencherTabela(tbl, procedimentos);
+        try{
+                procedimentos = procedimentoService.filtrarProntuario(animal.getId(), veterinarioId, data, status, tipo);
+                procedimentoService.preencherTabela(tbl, procedimentos);
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+        }
+        
     }//GEN-LAST:event_cmbProcedimentoActionPerformed
 
     private void cmbStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbStatusActionPerformed
@@ -1608,8 +1668,17 @@ public class TelaProntuario extends javax.swing.JFrame {
         }
                 
         procedimentos.clear();
-        procedimentos = procedimentoService.filtrarProntuario(animal.getId(), veterinarioId, data, status, tipo);
-        procedimentoService.preencherTabela(tbl, procedimentos);
+        try{
+            procedimentos = procedimentoService.filtrarProntuario(animal.getId(), veterinarioId, data, status, tipo);
+            procedimentoService.preencherTabela(tbl, procedimentos);   
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+        }
+        
     }//GEN-LAST:event_cmbStatusActionPerformed
 
     private void cmbResponsavelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbResponsavelActionPerformed
@@ -1637,8 +1706,17 @@ public class TelaProntuario extends javax.swing.JFrame {
                 
         
         procedimentos.clear();
-        procedimentos = procedimentoService.filtrarProntuario(animal.getId(), veterinarioId, data, status, tipo);
-        procedimentoService.preencherTabela(tbl, procedimentos);
+        try{
+            procedimentos = procedimentoService.filtrarProntuario(animal.getId(), veterinarioId, data, status, tipo);
+            procedimentoService.preencherTabela(tbl, procedimentos);   
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+        }
+        
     }//GEN-LAST:event_cmbResponsavelActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

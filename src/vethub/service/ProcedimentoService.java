@@ -1,5 +1,6 @@
 package vethub.service;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import vethub.model.Procedimento;
 import vethub.model.Animal;
@@ -21,19 +22,19 @@ public class ProcedimentoService {
         this.procedimentoDao = new ProcedimentoDAO();
     }
     
-    public void salvar(Procedimento procedimento){
+    public void salvar(Procedimento procedimento) throws ClassNotFoundException, SQLException{
         procedimentoDao.salvar(procedimento);
     }
     
-    public void editar(Procedimento procedimento){
+    public void editar(Procedimento procedimento) throws ClassNotFoundException, SQLException{
         procedimentoDao.editar(procedimento);
     }
     
-    public List<Procedimento> buscarAgendamentos(){
+    public List<Procedimento> buscarAgendamentos() throws ClassNotFoundException, SQLException{
         return procedimentoDao.buscarAgendamentos();       
     }
     
-    public boolean verificarDisponibilidade(LocalDateTime dataHora){
+    public boolean verificarDisponibilidade(LocalDateTime dataHora) throws ClassNotFoundException, SQLException{
         return procedimentoDao.verificarDisponibilidade(dataHora);
     }
     
@@ -76,27 +77,27 @@ public class ProcedimentoService {
         }
     }
     
-    public void excluir(int id){
+    public void excluir(int id) throws ClassNotFoundException, SQLException{
         procedimentoDao.excluir(id);
     }
     
-    public List<Procedimento> mostrarUltimos(){
+    public List<Procedimento> mostrarUltimos() throws ClassNotFoundException, SQLException{
         return procedimentoDao.mostrarUltimos();
     }
     
-    public List<Procedimento> filtrar(int animalId, int clienteId, String data, String tipo){
+    public List<Procedimento> filtrar(int animalId, int clienteId, String data, String tipo) throws ClassNotFoundException, SQLException{
         return procedimentoDao.filtrar(animalId, clienteId, data, tipo);
     }
     
-    public List<Procedimento> filtrarProntuario(int animalId, int veterinarioId, String data, String status, String tipo){
+    public List<Procedimento> filtrarProntuario(int animalId, int veterinarioId, String data, String status, String tipo) throws ClassNotFoundException, SQLException{
         return procedimentoDao.filtrarProntuario(animalId, veterinarioId, data, status, tipo);       
     }
     
-    public Procedimento buscarPorId(int id){
+    public Procedimento buscarPorId(int id) throws ClassNotFoundException, SQLException{
         return procedimentoDao.buscarPorId(id);
     }
     
-    public List<Procedimento> buscarPorAnimal(Animal animal){
+    public List<Procedimento> buscarPorAnimal(Animal animal) throws ClassNotFoundException, SQLException{
         return procedimentoDao.buscarPorAnimal(animal);
     }
 }

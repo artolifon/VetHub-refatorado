@@ -1,5 +1,6 @@
 package vethub.view;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import vethub.model.Procedimento;
 import java.time.format.DateTimeFormatter;
@@ -1032,15 +1033,19 @@ public class TelaEditarProcedimento extends javax.swing.JFrame {
                     Procedimento procedimentoNovo = new Procedimento(procedimento.getId(), dataHora, tipo, status, animal, usuario, anotacoes);
 
                     procedimentoService.editar(procedimentoNovo);
+                    new TelaProntuario(usuario, animal).setVisible(true);
+                    this.dispose();
                 }
             }
             
-        } catch(Exception e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
         }
-        
-        new TelaProntuario(usuario, animal).setVisible(true);
-        this.dispose();
+       
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

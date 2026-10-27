@@ -1,5 +1,6 @@
 package vethub.view;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import vethub.model.Animal;
@@ -40,7 +41,16 @@ public class TelaUsuarios extends javax.swing.JFrame {
         
         menuService.carregarMenu(btn7);
         
-        usuarios = usuarioService.buscarTodos();
+        try{
+            usuarios = usuarioService.buscarTodos();   
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+        }
+        
         
         usuarioService.preencherTabela(tbl, usuarios);
         
@@ -1033,10 +1043,18 @@ public class TelaUsuarios extends javax.swing.JFrame {
         
         int i = tbl.getSelectedRow();
         
-        Usuario u = usuarioService.buscarPorId(usuarios.get(i).getId());
+        try{
+            Usuario u = usuarioService.buscarPorId(usuarios.get(i).getId()); 
+            new TelaEditarUsuario(usuario, u).setVisible(true);
+            this.dispose();  
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+        }
         
-        new TelaEditarUsuario(usuario, u).setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void rbTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbTodosActionPerformed
@@ -1046,8 +1064,16 @@ public class TelaUsuarios extends javax.swing.JFrame {
             rbVeterinarios.setSelected(false);
             
             usuarios.clear();
-            usuarios = usuarioService.buscarTodos();
-            usuarioService.preencherTabela(tbl, usuarios);
+            try{
+                usuarios = usuarioService.buscarTodos();
+                usuarioService.preencherTabela(tbl, usuarios);            
+            } catch(ClassNotFoundException | SQLException e){
+                System.out.println(e.getMessage());
+                JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+                JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+            }
         }
         
     }//GEN-LAST:event_rbTodosActionPerformed
@@ -1061,8 +1087,16 @@ public class TelaUsuarios extends javax.swing.JFrame {
             String nome = txtUsuario.getText();
             
             usuarios.clear();
-            usuarios = usuarioService.filtrar(nome, "GERENTE");
-            usuarioService.preencherTabela(tbl, usuarios);
+            try{
+                usuarios = usuarioService.filtrar(nome, "GERENTE");
+                usuarioService.preencherTabela(tbl, usuarios);
+            } catch(ClassNotFoundException | SQLException e){
+                System.out.println(e.getMessage());
+                JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+                JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+            }
         }
     }//GEN-LAST:event_rbGerentesActionPerformed
 
@@ -1075,8 +1109,16 @@ public class TelaUsuarios extends javax.swing.JFrame {
             String nome = txtUsuario.getText();
             
             usuarios.clear();
-            usuarios = usuarioService.filtrar(nome, "ATENDENTE");
-            usuarioService.preencherTabela(tbl, usuarios);
+            try{
+                usuarios = usuarioService.filtrar(nome, "ATENDENTE");
+                usuarioService.preencherTabela(tbl, usuarios);            
+            } catch(ClassNotFoundException | SQLException e){
+                System.out.println(e.getMessage());
+                JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+                JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+            }
         }
     }//GEN-LAST:event_rbAtendentesActionPerformed
 
@@ -1089,8 +1131,17 @@ public class TelaUsuarios extends javax.swing.JFrame {
             String nome = txtUsuario.getText();
             
             usuarios.clear();
-            usuarios = usuarioService.filtrar(nome, "VETERINARIO");
-            usuarioService.preencherTabela(tbl, usuarios);
+            
+            try{
+                usuarios = usuarioService.filtrar(nome, "VETERINARIO");
+                usuarioService.preencherTabela(tbl, usuarios);            
+            } catch(ClassNotFoundException | SQLException e){
+                System.out.println(e.getMessage());
+                JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+                JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+            }
         }
     }//GEN-LAST:event_rbVeterinariosActionPerformed
 
@@ -1108,8 +1159,17 @@ public class TelaUsuarios extends javax.swing.JFrame {
             if(confirmacao == 0){
                 int linha = tbl.getSelectedRow();
                 int id = usuarios.get(linha).getId();
-                usuarioService.excluir(id);
-                usuarioService.preencherTabela(tbl, usuarioService.buscarTodos());
+                
+                try{
+                    usuarioService.excluir(id);
+                    usuarioService.preencherTabela(tbl, usuarioService.buscarTodos());        
+                } catch(ClassNotFoundException | SQLException e){
+                    System.out.println(e.getMessage());
+                    JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+                } catch (Exception e){
+                    System.out.println(e.getMessage());
+                    JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+                }
             }
         }
     }//GEN-LAST:event_jButton11ActionPerformed
@@ -1175,8 +1235,12 @@ public class TelaUsuarios extends javax.swing.JFrame {
             usuarios = usuarioService.filtrar(busca, cargo);
             usuarioService.preencherTabela(tbl, usuarios);  
             
-        } catch(Exception e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
         }
     }//GEN-LAST:event_txtUsuarioCaretUpdate
 
@@ -1188,10 +1252,19 @@ public class TelaUsuarios extends javax.swing.JFrame {
         
         int i = tbl.getSelectedRow();
         
-        Usuario usuarioSelecionado = usuarioService.buscarPorId(usuarios.get(i).getId());
+        try{
+            Usuario usuarioSelecionado = usuarioService.buscarPorId(usuarios.get(i).getId());
         
-        new TelaPerfilUsuario(usuario, usuarioSelecionado).setVisible(true);
-        this.dispose();
+            new TelaPerfilUsuario(usuario, usuarioSelecionado).setVisible(true);
+            this.dispose();                
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+        }
+        
     }//GEN-LAST:event_jButton4ActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

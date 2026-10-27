@@ -1,5 +1,6 @@
 package vethub.view;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
 import vethub.model.Animal;
@@ -52,14 +53,21 @@ public class TelaEditarAgendamento extends javax.swing.JFrame {
         
         inicializando = true;
         
-        clientes = clienteService.buscarTodos();
-        for(Cliente tutor : clientes){
+        try{
+            clientes = clienteService.buscarTodos();
+            for(Cliente tutor : clientes){
             cmbTutor.addItem(tutor.getNome());
+            animais = animalService.buscarTodos();
+            for(Animal animal : animais){
+                cmbAnimal.addItem(animal.getNome() + " (" + animal.getTutor().getNome() + ")");
+            }
         }
-        
-        animais = animalService.buscarTodos();
-        for(Animal animal : animais){
-            cmbAnimal.addItem(animal.getNome() + " (" + animal.getTutor().getNome() + ")");
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
         }
         
         cmbAnimal.setSelectedItem(agendamento.getAnimal().getNome());
@@ -981,10 +989,18 @@ public class TelaEditarAgendamento extends javax.swing.JFrame {
         int i = cmbAnimal.getSelectedIndex();
         
         if(cmbTutor.getSelectedIndex() == -1){
-            Cliente tutor = animalService.selecionarTutor(animais.get(i).getTutor().getId());
-            inicializando = true;
-            cmbTutor.setSelectedItem(tutor.getNome());
-            inicializando = false;
+            try{
+                Cliente tutor = animalService.selecionarTutor(animais.get(i).getTutor().getId());
+                inicializando = true;
+                cmbTutor.setSelectedItem(tutor.getNome());
+                inicializando = false;
+            } catch(ClassNotFoundException | SQLException e){
+                System.out.println(e.getMessage());
+                JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+                JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+            }
         }
     }//GEN-LAST:event_cmbAnimalActionPerformed
 
@@ -996,7 +1012,16 @@ public class TelaEditarAgendamento extends javax.swing.JFrame {
         int i = cmbTutor.getSelectedIndex();
         
         animais.clear();
-        animais = clienteService.filtrarAnimais(clientes.get(i));
+        
+        try{
+            animais = clienteService.filtrarAnimais(clientes.get(i));
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+        }
         
         inicializando = true;
         
@@ -1041,9 +1066,12 @@ public class TelaEditarAgendamento extends javax.swing.JFrame {
                     return;
                 }
             }
-            
-        } catch(Exception e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
         }
         
         new TelaAgendamentos(usuario).setVisible(true);

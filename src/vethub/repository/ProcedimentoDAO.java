@@ -27,7 +27,7 @@ public class ProcedimentoDAO {
     private ResultSet rs;
     
     
-    public void salvar(Procedimento p){
+    public void salvar(Procedimento p) throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -59,7 +59,7 @@ public class ProcedimentoDAO {
         }
     }
     
-    public void editar(Procedimento p){
+    public void editar(Procedimento p) throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -93,7 +93,7 @@ public class ProcedimentoDAO {
         }
     }
     
-    public List<Procedimento> buscarAgendamentos(){
+    public List<Procedimento> buscarAgendamentos() throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -140,7 +140,7 @@ public class ProcedimentoDAO {
         return agendamentos;
     }
     
-    public boolean verificarDisponibilidade(LocalDateTime dataHora){
+    public boolean verificarDisponibilidade(LocalDateTime dataHora) throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -171,7 +171,7 @@ public class ProcedimentoDAO {
         return disponibilidade;
     }
     
-    public void excluir(int id){
+    public void excluir(int id) throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -197,7 +197,7 @@ public class ProcedimentoDAO {
         }
     }
     
-    public List<Procedimento> mostrarUltimos(){
+    public List<Procedimento> mostrarUltimos() throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -245,7 +245,7 @@ public class ProcedimentoDAO {
         return agendamentos;
     }
     
-    public List<Procedimento> filtrar(int animalId, int clienteId, String data, String tipo){
+    public List<Procedimento> filtrar(int animalId, int clienteId, String data, String tipo) throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -326,7 +326,7 @@ public class ProcedimentoDAO {
         return procedimentos;
     }
     
-    public List<Procedimento> filtrarProntuario(int animalId, int veterinarioId, String data, String status, String tipo){
+    public List<Procedimento> filtrarProntuario(int animalId, int veterinarioId, String data, String status, String tipo) throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -405,7 +405,7 @@ public class ProcedimentoDAO {
         return procedimentos;
     }
     
-    public Procedimento buscarPorId(int id){
+    public Procedimento buscarPorId(int id) throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -479,7 +479,7 @@ public class ProcedimentoDAO {
         return p;
     }
     
-    public List<Procedimento> buscarPorAnimal(Animal a){
+    public List<Procedimento> buscarPorAnimal(Animal a) throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();

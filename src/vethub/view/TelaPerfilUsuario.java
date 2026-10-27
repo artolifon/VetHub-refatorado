@@ -1,5 +1,6 @@
 package vethub.view;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
 import vethub.model.Animal;
@@ -1018,7 +1019,15 @@ public class TelaPerfilUsuario extends javax.swing.JFrame {
         int confirmacao = JOptionPane.showConfirmDialog(null, "Você deseja excluir este cadastro?");
             if(confirmacao == 0){
                 UsuarioService us = new UsuarioService();
-                us.excluir(usuario.getId());
+                try{
+                    us.excluir(usuario.getId());
+                } catch(ClassNotFoundException | SQLException e){
+                    System.out.println(e.getMessage());
+                    JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+                } catch (Exception e){
+                    System.out.println(e.getMessage());
+                    JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+                }
             }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
