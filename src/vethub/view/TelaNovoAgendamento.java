@@ -1167,6 +1167,7 @@ public class TelaNovoAgendamento extends javax.swing.JFrame {
                 p.setVeterinario(usuario);
                     
                 procedimentoService.salvar(p);
+                JOptionPane.showMessageDialog(null, "Agendamento realizado com sucesso.");
                     
                 new TelaAgendamentos(usuario).setVisible(true);
                 this.dispose();

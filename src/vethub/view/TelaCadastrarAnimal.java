@@ -1251,6 +1251,7 @@ public class TelaCadastrarAnimal extends javax.swing.JFrame {
                     this.dispose();
                     new TelaAnimais(usuario).setVisible(true);
                 }
+                JOptionPane.showMessageDialog(null, "Animal cadastrado com sucesso.");
             }
         } catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());

@@ -914,6 +914,7 @@ public class TelaCriarAcesso extends javax.swing.JFrame {
                 usuarioCriado.setSenha(txtSenha.getText());
                 
                 usuarioService.criarAcesso(usuarioCriado);
+                JOptionPane.showMessageDialog(null, "Acesso criado com sucesso.");
                 
                 new TelaUsuarios(usuario).setVisible(true);
                 this.dispose();

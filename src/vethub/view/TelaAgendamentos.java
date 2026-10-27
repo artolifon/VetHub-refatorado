@@ -1279,6 +1279,7 @@ public class TelaAgendamentos extends javax.swing.JFrame {
                 int id = procedimentos.get(linha).getId();
                 try{
                     ps.excluir(id);
+                    JOptionPane.showMessageDialog(null, "Agendamento excluído com sucesso.");
                 } catch(ClassNotFoundException | SQLException e){
                     System.out.println(e.getMessage());
                     JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");

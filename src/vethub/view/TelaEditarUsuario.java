@@ -1083,6 +1083,7 @@ public class TelaEditarUsuario extends javax.swing.JFrame {
                     u.setEndereco(e);
                     
                     usuarioService.editar(u);
+                    JOptionPane.showMessageDialog(null, "Usuário editado com sucesso.");
                     new TelaUsuarios(usuario).setVisible(true);
                     this.dispose();
                 }

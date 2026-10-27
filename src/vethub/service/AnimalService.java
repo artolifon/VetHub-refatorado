@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Period;
 import vethub.model.Animal;
-import javax.swing.JOptionPane;
 import vethub.model.Cliente;
 import java.util.List;
 import java.util.ArrayList;

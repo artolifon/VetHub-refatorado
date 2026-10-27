@@ -1068,6 +1068,7 @@ public class TelaEditarCliente extends javax.swing.JFrame {
                     c.setEndereco(e);
                     
                     clienteService.editar(c);
+                    JOptionPane.showMessageDialog(null, "Cliente editado com sucesso.");
                 } else {
                     return;
                 }

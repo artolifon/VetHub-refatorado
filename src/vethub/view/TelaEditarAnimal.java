@@ -1207,6 +1207,7 @@ public class TelaEditarAnimal extends javax.swing.JFrame {
                     animal.setTutor(tutor);    
                     
                     animalService.editar(animal);
+                    JOptionPane.showMessageDialog(null, "Animal editado com sucesso.");
                 } else {
                     return;
                 }

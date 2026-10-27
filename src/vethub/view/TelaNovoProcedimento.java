@@ -1017,6 +1017,7 @@ public class TelaNovoProcedimento extends javax.swing.JFrame {
                     p.setVeterinario(usuario);
 
                     procedimentoService.salvar(p);
+                    JOptionPane.showMessageDialog(null, "Procedimento salvo com sucesso.");
                 }
             }
             

@@ -1033,6 +1033,7 @@ public class TelaClientes extends javax.swing.JFrame {
                 int id = clientes.get(linha).getId();
                 try{
                     clienteService.excluir(id);
+                    JOptionPane.showMessageDialog(null, "Cliente excluído com sucesso.");
                 } catch(ClassNotFoundException | SQLException e){
                     System.out.println(e.getMessage());
                     JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");

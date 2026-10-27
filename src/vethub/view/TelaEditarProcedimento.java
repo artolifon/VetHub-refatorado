@@ -1033,6 +1033,7 @@ public class TelaEditarProcedimento extends javax.swing.JFrame {
                     Procedimento procedimentoNovo = new Procedimento(procedimento.getId(), dataHora, tipo, status, animal, usuario, anotacoes);
 
                     procedimentoService.editar(procedimentoNovo);
+                    JOptionPane.showMessageDialog(null, "Procedimento editado com sucesso.");
                     new TelaProntuario(usuario, animal).setVisible(true);
                     this.dispose();
                 }

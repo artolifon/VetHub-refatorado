@@ -1079,13 +1079,12 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
                     u.setEndereco(e);
                     
                     usuarioService.cadastrar(u);
+                    JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso.");
                     
                     new TelaCriarAcesso(usuario, u).setVisible(true);
                     this.dispose();
                 }
-                
             }
-            
         } catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");

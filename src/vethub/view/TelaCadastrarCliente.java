@@ -1,5 +1,6 @@
 package vethub.view;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
 import vethub.model.Animal;
@@ -1062,13 +1063,18 @@ public class TelaCadastrarCliente extends javax.swing.JFrame {
                     
                     clienteService.cadastrar(c);
                     
+                    JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso.");
+                    
                     new TelaClientes(usuario).setVisible(true);
                     this.dispose();
                 }
             }
-            
-        } catch(Exception e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 

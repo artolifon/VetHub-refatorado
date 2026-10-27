@@ -1147,6 +1147,7 @@ public class TelaAnimais extends javax.swing.JFrame {
                     animais = animalService.buscarTodos();
 
                     animalService.preencherTabela(tbl, animais, "animais");
+                    JOptionPane.showMessageDialog(null, "Animal excluído com sucesso.");
                 } catch(ClassNotFoundException | SQLException e){
                     System.out.println(e.getMessage());
                     JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");

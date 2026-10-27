@@ -1062,6 +1062,7 @@ public class TelaEditarAgendamento extends javax.swing.JFrame {
                     
                     Procedimento agendamentoNovo = new Procedimento(agendamento.getId(), dataHora, tipo, status, animal, usuario, anotacoes);
                     procedimentoService.editar(agendamentoNovo);
+                    JOptionPane.showMessageDialog(null, "Agendamento editado com sucesso.");
                 } else {
                     return;
                 }

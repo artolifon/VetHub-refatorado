@@ -3,7 +3,6 @@ package vethub.repository;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 import java.util.List;
 import java.util.ArrayList;
 import java.sql.Date;
@@ -31,15 +30,13 @@ public class AnimalDAO {
     public List<Animal> buscarTodos() throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
-                conn = Conexao.conectar();
+              conn = Conexao.conectar();
             }
-        } catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
+       
         
-        animais.clear();
-        
-        try{
+            animais.clear();
+
+
             ps = conn.prepareStatement("SELECT a.*, c.*, e.* FROM animal AS a JOIN cliente AS c ON a.cliente_id = c.id JOIN endereco AS e ON c.endereco_id = e.id");
             rs = ps.executeQuery();
             while(rs.next()){
@@ -53,13 +50,13 @@ public class AnimalDAO {
                 if(dataSql != null){
                     a.setDataNascimento(rs.getDate("a.data_nascimento").toLocalDate());
                 }
-                
+
                 Double peso = null;
-                
+
                 if(rs.getDouble("a.peso") != 0.0){
                     peso = rs.getDouble("a.peso");
                 }
-                
+
                 a.setPeso(peso);
                 a.getTutor().setId(rs.getInt("a.cliente_id"));
                 a.getTutor().setNome(rs.getString("c.nome"));
@@ -74,57 +71,49 @@ public class AnimalDAO {
 
                 animais.add(a);
             }
-        } catch(SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        } finally {
-            Conexao.desconectar(conn);
-        }
-        
-        return animais;
+
+            return animais;  
+            } finally {
+                Conexao.desconectar(conn);
+            }
     }
     
     public void cadastrar(Animal a) throws ClassNotFoundException, SQLException{ 
         try{
             if(conn == null || conn.isClosed()){
-                conn = Conexao.conectar();
+               conn = Conexao.conectar();
             }
-        } catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
-        
-        if(conn != null){
-            try {
-                String sql = "INSERT INTO animal(nome, especie, sexo, raca, data_nascimento, peso, cliente_id) VALUES (?, ?, ?, ? , ?, ?, ?)";
-                
-                ps = conn.prepareStatement(sql);
-                
-                ps.setString(1, a.getNome());
-                ps.setString(2, a.getEspecie());
-                ps.setString(3, a.getSexo());
-                ps.setString(4, a.getRaca());
-                
-                Date sqlDate = null;
-                if(a.getDataNascimento() != null){
-                    sqlDate = Date.valueOf(a.getDataNascimento());
-                }
-                ps.setDate(5, sqlDate);
-                
-                if(a.getPeso() != null){
-                    ps.setDouble(6, a.getPeso());  
-                } else {
-                    ps.setNull(6, java.sql.Types.DOUBLE); 
-                }
-                
-                ps.setInt(7, a.getTutor().getId());
-                ps.executeUpdate();
-                
-                JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso.");
-                
-            } catch(SQLException ex){
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-            } finally {
-               Conexao.desconectar(conn); 
-            }
+
+
+           if(conn != null){
+
+               String sql = "INSERT INTO animal(nome, especie, sexo, raca, data_nascimento, peso, cliente_id) VALUES (?, ?, ?, ? , ?, ?, ?)";
+
+               ps = conn.prepareStatement(sql);
+
+               ps.setString(1, a.getNome());
+               ps.setString(2, a.getEspecie());
+               ps.setString(3, a.getSexo());
+               ps.setString(4, a.getRaca());
+
+               Date sqlDate = null;
+               if(a.getDataNascimento() != null){
+                   sqlDate = Date.valueOf(a.getDataNascimento());
+               }
+               ps.setDate(5, sqlDate);
+
+               if(a.getPeso() != null){
+                   ps.setDouble(6, a.getPeso());  
+               } else {
+                   ps.setNull(6, java.sql.Types.DOUBLE); 
+               }
+
+               ps.setInt(7, a.getTutor().getId());
+               ps.executeUpdate();
+
+           }   
+        } finally {
+            Conexao.desconectar(conn);
         }
     }
     
@@ -133,34 +122,27 @@ public class AnimalDAO {
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
             }
-        } catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
+            
+            Cliente tutor = null;
         
-        Cliente tutor = null;
-        
-        String sql = "SELECT * FROM cliente WHERE id = ?";
-        
-        try{
-          ps = conn.prepareStatement(sql);
-          ps.setInt(1, idTutor);
-          
-          ResultSet rs = ps.executeQuery();
-          
+            String sql = "SELECT * FROM cliente WHERE id = ?";
+
+
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, idTutor);
+
+            ResultSet rs = ps.executeQuery();
+
             if(rs.next()){
                 tutor = new Cliente();
-              
+
                 tutor.setId(rs.getInt("id"));
                 tutor.setNome(rs.getString("nome"));
             }
-            
-        } catch(SQLException ex){
-           JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados: " + ex.getMessage());
+            return tutor;
         } finally {
             Conexao.desconectar(conn);
         }
-        
-        return tutor;
     }
     
     public void editar(Animal a) throws ClassNotFoundException, SQLException{
@@ -168,42 +150,33 @@ public class AnimalDAO {
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
             }
-        } catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
-        
-        String sql = "UPDATE animal SET nome = ?, especie = ?, sexo = ?, raca = ?, data_nascimento = ?, peso = ?, cliente_id = ? WHERE id = ?";
-      
-        try{
-            
+            String sql = "UPDATE animal SET nome = ?, especie = ?, sexo = ?, raca = ?, data_nascimento = ?, peso = ?, cliente_id = ? WHERE id = ?";
+
+
+
             ps = conn.prepareStatement(sql);
-            
+
             ps.setString(1, a.getNome());
             ps.setString(2, a.getEspecie());
             ps.setString(3, a.getSexo());
             ps.setString(4, a.getRaca());
-            
+
             if(a.getDataNascimento() != null){
                 ps.setDate(5, Date.valueOf(a.getDataNascimento()));
             } else {
                 ps.setDate(5, null);
             }
-            
+
             if(a.getPeso() != null){
                 ps.setDouble(6, a.getPeso());
             } else {
                 ps.setObject(6, null);
             }
-            
+
             ps.setInt(7, a.getTutor().getId());
             ps.setInt(8, a.getId());
-            
-            ps.executeUpdate();
-            
-            JOptionPane.showMessageDialog(null, "Animal editado com sucesso.");
-            
-        } catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Falha ao editar animal: " + ex.getMessage());
+
+            ps.executeUpdate();    
         } finally {
             Conexao.desconectar(conn);
         }
@@ -214,14 +187,10 @@ public class AnimalDAO {
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
             }
-        } catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
-        
-        animais.clear();
-        
-        try{
-            
+            animais.clear();
+
+
+
             String sql = "SELECT a.*, c.*, e.* FROM animal AS a "
                     + "JOIN cliente AS c ON a.cliente_id = c.id "
                     + "JOIN endereco AS e ON c.endereco_id = e.id "
@@ -230,11 +199,11 @@ public class AnimalDAO {
 
             ps.setString(1, "%" + especie + "%");
             rs = ps.executeQuery();
-            
+
             while(rs.next()){
-                
+
                 Animal a = new Animal();
-                
+
                 a.setNome(rs.getString("a.nome"));
                 a.setEspecie(rs.getString("a.especie"));
                 a.setSexo(rs.getString("a.sexo"));
@@ -257,14 +226,12 @@ public class AnimalDAO {
 
                 animais.add(a);
             }  
-            
-        } catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados");
+
+
+            return animais;    
         } finally {
             Conexao.desconectar(conn);
         }
-        
-        return animais;
     }
     
     public Animal buscarPorId(int id) throws ClassNotFoundException, SQLException{
@@ -272,30 +239,28 @@ public class AnimalDAO {
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
             }
-        } catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
-        
-        Animal a = null;
-        
-        try{
+
+
+            Animal a = null;
+
+
             ps = conn.prepareStatement("SELECT a.*, c.* FROM animal AS a "
                     + "JOIN cliente AS c ON a.cliente_id = c.id WHERE a.id = ?");
-            
+
             ps.setInt(1, id);
-            
+
             rs = ps.executeQuery();
-            
+
             if(rs.next()){
                 a = new Animal();
                 Cliente c = new Cliente();
-                    
+
                 c.setId(rs.getInt("c.id"));
                 c.setNome(rs.getString("c.nome"));
                 c.setCpf(rs.getString("c.cpf"));
                 c.setEmail(rs.getString("c.email"));
                 c.setTelefone(rs.getString("c.telefone"));
-                
+
                 a.setId(rs.getInt("a.id"));
                 a.setNome(rs.getString("a.nome"));
                 a.setEspecie(rs.getString("a.especie"));
@@ -305,24 +270,22 @@ public class AnimalDAO {
                 if(dataSql != null){
                     a.setDataNascimento(rs.getDate("a.data_nascimento").toLocalDate());
                 }
-                
+
                 Double peso = null;
-                
+
                 if(rs.getDouble("a.peso") != 0.0){
                     peso = rs.getDouble("a.peso");
                 }
-                
+
                 a.setPeso(peso);
                 a.setTutor(c);
             }
-            
-        } catch(SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao buscar animal: " + ex.getMessage());
+
+            return a;    
         } finally {
             Conexao.desconectar(conn);
         }
         
-        return a;
     }
     
     public void excluir(int id) throws ClassNotFoundException, SQLException{
@@ -330,25 +293,18 @@ public class AnimalDAO {
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
             }
-        } catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
-        
-        String sql = "DELETE FROM animal WHERE id = ?";
-            
-        try{
+
+
+            String sql = "DELETE FROM animal WHERE id = ?";
+
+
             ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
-        
-            ps.executeUpdate();
-            
-            JOptionPane.showMessageDialog(null, "Animal excluído com sucesso.");
-            
-        } catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Erro ao excluir animal: " + ex.getMessage());
+
+            ps.executeUpdate();      
         } finally {
             Conexao.desconectar(conn);
-        }    
+        }
     }
     
     public List<Animal> filtrarPorNome(String nome) throws ClassNotFoundException, SQLException{
@@ -356,32 +312,30 @@ public class AnimalDAO {
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
             }
-        } catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
-        
-        animais.clear();
-        String sql = "SELECT a.*, c.* FROM animal AS a "
-                + "JOIN cliente AS c ON a.cliente_id = c.id "
-                + "WHERE a.nome LIKE ?";
-        
-        try{
-            
+
+
+            animais.clear();
+            String sql = "SELECT a.*, c.* FROM animal AS a "
+                    + "JOIN cliente AS c ON a.cliente_id = c.id "
+                    + "WHERE a.nome LIKE ?";
+
+
+
             ps = conn.prepareStatement(sql);
             ps.setString(1, "%" + nome + "%");
-            
+
             rs = ps.executeQuery();
-            
+
             while(rs.next()){
                 Animal a = new Animal();
                 Cliente c = new Cliente();
-                    
+
                 c.setId(rs.getInt("c.id"));
                 c.setNome(rs.getString("c.nome"));
                 c.setCpf(rs.getString("c.cpf"));
                 c.setEmail(rs.getString("c.email"));
                 c.setTelefone(rs.getString("c.telefone"));
-                    
+
                 a.setNome(rs.getString("nome"));
                 a.setEspecie(rs.getString("especie"));
                 a.setSexo(rs.getString("sexo"));
@@ -392,17 +346,14 @@ public class AnimalDAO {
                 }
                 a.setPeso(rs.getDouble("peso"));
                 a.setTutor(c);
-                
+
                 animais.add(a);
             }
-           
-        } catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Erro ao filtrar: " + ex.getMessage());
+
+            return animais;    
         } finally {
             Conexao.desconectar(conn);
-        } 
-        
-        return animais;
+        }
     }    
     
     public int contarTodos() throws ClassNotFoundException, SQLException{
@@ -410,61 +361,53 @@ public class AnimalDAO {
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
             }
-        } catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
-        
-        int quantidade = 0;
-                
-        String sql = "SELECT COUNT(*) FROM animal";
-        
-        try{
-            
+
+
+            int quantidade = 0;
+
+            String sql = "SELECT COUNT(*) FROM animal";
+
+
+
+
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
-            
+
             if(rs.next()){
                 quantidade = rs.getInt(1);
             }
-            
-        }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Erro ao contar: " + ex.getMessage());
+
+            return quantidade;  
         } finally {
             Conexao.desconectar(conn);
-        } 
+        }
         
-        return quantidade;
     }
     
     public int contarCaes()throws ClassNotFoundException, SQLException{
         try{
             if(conn == null || conn.isClosed()){
-                conn = Conexao.conectar();
+              conn = Conexao.conectar();
             }
-        } catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
-        
-        int quantidade = 0;
-                
-        String sql = "SELECT COUNT(*) FROM animal WHERE especie = 'Cão'";
-        
-        try{
-            
+
+            int quantidade = 0;
+
+            String sql = "SELECT COUNT(*) FROM animal WHERE especie = 'Cão'";
+
+
+
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
-            
+
             if(rs.next()){
                 quantidade = rs.getInt(1);
             }
-            
-        }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Erro ao contar: " + ex.getMessage());
+
+            return quantidade;  
         } finally {
             Conexao.desconectar(conn);
-        } 
+        }
         
-        return quantidade;
     }
     
     public int contarGatos() throws ClassNotFoundException, SQLException{
@@ -472,29 +415,22 @@ public class AnimalDAO {
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
             }
-        } catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
-        
-        int quantidade = 0;
-                
-        String sql = "SELECT COUNT(*) FROM animal WHERE especie = 'Gato'";
-        
-        try{
-            
+
+            int quantidade = 0;
+
+            String sql = "SELECT COUNT(*) FROM animal WHERE especie = 'Gato'";
+
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
-            
+
             if(rs.next()){
                 quantidade = rs.getInt(1);
             }
-            
-        }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Erro ao contar: " + ex.getMessage());
+
+            return quantidade;    
         } finally {
             Conexao.desconectar(conn);
-        } 
+        }
         
-        return quantidade;
     }
 }
