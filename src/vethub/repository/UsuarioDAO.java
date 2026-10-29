@@ -61,8 +61,6 @@ public class UsuarioDAO {
                     + "JOIN endereco AS e ON u.endereco_id = e.id "
                     + "WHERE login = ? AND senha = MD5(?)";
 
-
-
             ps = conn.prepareStatement(sql);
             ps.setString(1, login);
             ps.setString(2, senha);
@@ -87,10 +85,8 @@ public class UsuarioDAO {
                 u.setTelefone(rs.getString("u.telefone"));
                 u.setEndereco(e);
                 u.setCargo(rs.getString("u.cargo"));
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos.");
             }
+            
             return u;    
         } finally {
             Conexao.desconectar(conn);

@@ -368,6 +368,8 @@ public class TelaLogin extends javax.swing.JFrame {
                     } else if(usuario.getCargo().equals("ATENDENTE") || usuario.getCargo().equals("VETERINARIO")){
                         new TelaPainel(usuario).setVisible(true);
                     }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos.");
                 }
             }
         } catch(ClassNotFoundException | SQLException e){
