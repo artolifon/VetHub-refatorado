@@ -1,7 +1,6 @@
 package vethub.model;
 
 import java.time.LocalDate;
-import java.time.Period;
 
 public class Animal {
     private int id;

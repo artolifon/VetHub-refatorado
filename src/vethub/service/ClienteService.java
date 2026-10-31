@@ -3,7 +3,6 @@ package vethub.service;
 import java.sql.SQLException;
 import vethub.model.Cliente;
 import java.util.List;
-import java.util.ArrayList;
 import vethub.model.Animal;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;

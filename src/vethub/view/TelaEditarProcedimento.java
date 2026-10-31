@@ -1,19 +1,13 @@
 package vethub.view;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
 import vethub.model.Procedimento;
 import java.time.format.DateTimeFormatter;
-import java.time.LocalDateTime;
-import java.util.List;
 import javax.swing.JOptionPane;
 import vethub.model.Animal;
-import vethub.model.Cliente;
-import vethub.model.Endereco;
 import vethub.model.Usuario;
 import vethub.service.AnimalService;
 import vethub.service.ProcedimentoService;
-import vethub.service.ValidadorService;
 
 /**
  *

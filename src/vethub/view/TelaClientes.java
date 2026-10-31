@@ -1,12 +1,9 @@
 package vethub.view;
 
 import java.sql.SQLException;
-import vethub.model.Animal;
 import vethub.model.Cliente;
 import java.util.List;
 import javax.swing.JOptionPane;
-import vethub.model.Endereco;
-import vethub.model.Procedimento;
 import vethub.model.Usuario;
 import vethub.service.ClienteService;
 

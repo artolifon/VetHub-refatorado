@@ -5,12 +5,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
-import java.sql.Date;
 import java.sql.ResultSet;
 import vethub.util.Conexao;
 import vethub.model.Animal;
 import vethub.model.Cliente;
-import vethub.model.Endereco;
 import java.sql.Date;
 
 /**

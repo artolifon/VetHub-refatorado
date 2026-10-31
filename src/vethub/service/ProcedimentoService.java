@@ -9,7 +9,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import vethub.repository.ProcedimentoDAO;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
 
 /**
  *

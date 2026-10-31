@@ -2,7 +2,6 @@ package vethub.repository;
 
 import java.sql.Connection;
 import java.sql.Date;
-import java.time.LocalDateTime;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;

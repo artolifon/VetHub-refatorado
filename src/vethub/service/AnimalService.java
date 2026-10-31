@@ -1,12 +1,10 @@
 package vethub.service;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.Period;
 import vethub.model.Animal;
 import vethub.model.Cliente;
 import java.util.List;
-import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import vethub.repository.AnimalDAO;
