@@ -90,12 +90,5 @@ public class Animal {
 
     public void setTutor(Cliente tutor) {
         this.tutor = tutor;
-    }
-    
-    public Period calcularIdade(){
-        LocalDate hoje = LocalDate.now();
-        Period idade = Period.between(this.dataNascimento, hoje);
-        return idade;
-    }
-    
+    }    
 }
