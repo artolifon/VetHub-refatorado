@@ -68,9 +68,4 @@ public class Cliente {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
-    
-    @Override
-    public String toString(){
-        return nome;
-    }
 }
