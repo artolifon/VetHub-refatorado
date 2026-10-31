@@ -356,28 +356,25 @@ public class TelaLogin extends javax.swing.JFrame {
         
         try {
             if(txtLogin.getText().isEmpty() || txtSenha.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Os campos devem ser preenchidos.");
-            } else {
-                
-                this.usuario = usuarioService.validar(txtLogin.getText().trim(), txtSenha.getText());
-
-                if(usuario != null){
-                    this.dispose();
-                    if(usuario.getCargo().equals("GERENTE")){
-                        new TelaPainelGerente(usuario).setVisible(true);
-                    } else if(usuario.getCargo().equals("ATENDENTE") || usuario.getCargo().equals("VETERINARIO")){
-                        new TelaPainel(usuario).setVisible(true);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos.");
-                }
+                JOptionPane.showMessageDialog(null, "Os campos devem ser preenchidos.");
+                return;
+            }
+            
+            this.usuario = usuarioService.validar(txtLogin.getText().trim(), txtSenha.getText());
+            
+            this.dispose();
+            
+            if(usuario.getCargo().equals("GERENTE")){
+                new TelaPainelGerente(usuario).setVisible(true);
+            } else if(usuario.getCargo().equals("ATENDENTE") || usuario.getCargo().equals("VETERINARIO")){
+                new TelaPainel(usuario).setVisible(true);
             }
         } catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
         } catch (Exception e){
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         
     }//GEN-LAST:event_btnEntrarActionPerformed

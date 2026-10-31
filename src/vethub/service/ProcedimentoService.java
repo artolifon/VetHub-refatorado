@@ -17,16 +17,52 @@ import java.util.Collections;
  */
 public class ProcedimentoService {
     private final ProcedimentoDAO procedimentoDao;
+    private final ValidadorService validador;
     
     public ProcedimentoService(){
         this.procedimentoDao = new ProcedimentoDAO();
+        this.validador = new ValidadorService();
     }
     
-    public void salvar(Procedimento procedimento) throws ClassNotFoundException, SQLException{
+    public void salvar(Procedimento procedimento, String data, String hora) throws ClassNotFoundException, SQLException, Exception{
+        if(!validador.validarData(data)){
+            throw new Exception("A data deve estar no formato dd/mm/aaaa.");
+        }
+        
+        if(!validador.validarHora(hora)){
+            throw new Exception("A hora deve estar no formato hh:mm.");
+        }
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm");
+        LocalDateTime dataHora = LocalDateTime.parse(data + " " + hora, formatter);
+        
+        if(!verificarDisponibilidade(dataHora)){
+            throw new Exception("Este horário não está disponível.");
+        }
+        
+        procedimento.setDataHora(dataHora);
+        
         procedimentoDao.salvar(procedimento);
     }
     
-    public void editar(Procedimento procedimento) throws ClassNotFoundException, SQLException{
+    public void editar(Procedimento procedimento, String data, String hora) throws ClassNotFoundException, SQLException, Exception{
+        if(!validador.validarData(data)){
+            throw new Exception("A data deve estar no formato dd/mm/aaaa.");
+        }
+        
+        if(!validador.validarHora(hora)){
+            throw new Exception("A hora deve estar no formato hh:mm.");
+        }
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm");
+        LocalDateTime dataHora = LocalDateTime.parse(data + " " + hora, formatter);
+        
+        if(!verificarDisponibilidade(dataHora)){
+            throw new Exception("Este horário não está disponível.");
+        }
+        
+        procedimento.setDataHora(dataHora);
+        
         procedimentoDao.editar(procedimento);
     }
     

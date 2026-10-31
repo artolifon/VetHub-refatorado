@@ -1013,8 +1013,6 @@ public class TelaEditarProcedimento extends javax.swing.JFrame {
     }//GEN-LAST:event_lblSairMouseClicked
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        ValidadorService validador = new ValidadorService();
-        
         try{
             String data = txtData.getText().trim().replace(".","/").replace("-","/");
             String hora = txtHora.getText().trim().replace("h", ":");
@@ -1025,26 +1023,27 @@ public class TelaEditarProcedimento extends javax.swing.JFrame {
 
             if(data.isEmpty() || hora.isEmpty() || cmbProcedimento.getSelectedIndex() == -1 || cmbStatus.getSelectedIndex() == -1 || anotacoes.isEmpty()){
                 JOptionPane.showMessageDialog(null, "Todos os campos devem estar preenchidos.");
-            } else {
-                if(validador.validarData(data) && validador.validarHora(hora)){
-
-                    DateTimeFormatter formatterDataHora = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-                    LocalDateTime dataHora = LocalDateTime.parse(data + " " + hora, formatterDataHora);
-                    Procedimento procedimentoNovo = new Procedimento(procedimento.getId(), dataHora, tipo, status, animal, usuario, anotacoes);
-
-                    procedimentoService.editar(procedimentoNovo);
-                    JOptionPane.showMessageDialog(null, "Procedimento editado com sucesso.");
-                    new TelaProntuario(usuario, animal).setVisible(true);
-                    this.dispose();
-                }
+                return;
             }
+
+            Procedimento p = new Procedimento();
+            p.setTipo(tipo);
+            p.setStatus(status);
+            p.setAnimal(animal);
+            p.setVeterinario(usuario);
+
+            procedimentoService.editar(p, data, hora);
             
+            JOptionPane.showMessageDialog(null, "Procedimento editado com sucesso.");
+            new TelaProntuario(usuario, animal).setVisible(true);
+            this.dispose();
+             
         } catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
         } catch (Exception e){
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
        
     }//GEN-LAST:event_btnSalvarActionPerformed

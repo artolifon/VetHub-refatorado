@@ -1044,35 +1044,30 @@ public class TelaEditarCliente extends javax.swing.JFrame {
             String estado = txtEstado.getText().trim();
             String cep = txtCep.getText().trim();
             
-            if(nome.isEmpty() || telefone.isEmpty()){
-                JOptionPane.showMessageDialog(null, "Os campos com asterisco são obrigatórios."); 
+            if(nome.isEmpty() || cpf.isEmpty() || email.isEmpty() || telefone.isEmpty() || rua.isEmpty() || bairro.isEmpty() || cep.isEmpty() || cidade.isEmpty() || estado.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos.");
                 return;
-            } else {
-                
-                ValidadorService validador = new ValidadorService();
-                if((cpf.isEmpty() || validador.validarCpf(cpf)) && (email.isEmpty() || validador.validarEmail(email)) && (cep.isEmpty() || validador.validarCep(cep))){
-                    
-                    Endereco e = new Endereco();
-                    e.setRuaNumero(rua);
-                    e.setBairro(bairro);
-                    e.setCidade(cidade);
-                    e.setEstado(estado);
-                    e.setCep(cep);
-                    
-                    Cliente c = new Cliente();
-                    c.setId(cliente.getId());
-                    c.setNome(nome);
-                    c.setCpf(cpf);
-                    c.setEmail(email);
-                    c.setTelefone(telefone);
-                    c.setEndereco(e);
-                    
-                    clienteService.editar(c);
-                    JOptionPane.showMessageDialog(null, "Cliente editado com sucesso.");
-                } else {
-                    return;
-                }
             }
+            
+            Endereco e = new Endereco();
+            e.setRuaNumero(rua);
+            e.setBairro(bairro);
+            e.setCidade(cidade);
+            e.setEstado(estado);
+            e.setCep(cep);
+
+            Cliente c = new Cliente();
+            c.setId(cliente.getId());
+            c.setNome(nome);
+            c.setCpf(cpf);
+            c.setEmail(email);
+            c.setTelefone(telefone);
+            c.setEndereco(e);
+
+            clienteService.editar(c);
+            
+            JOptionPane.showMessageDialog(null, "Cliente editado com sucesso.");
+            
             new TelaClientes(usuario).setVisible(true);
             this.dispose();
         } catch(ClassNotFoundException | SQLException e){
@@ -1080,7 +1075,7 @@ public class TelaEditarCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
         } catch (Exception e){
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         
     }//GEN-LAST:event_btnSalvarActionPerformed

@@ -1037,8 +1037,6 @@ public class TelaEditarAgendamento extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbTutorActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        ValidadorService validador = new ValidadorService();
-        
         try{
             int i = cmbAnimal.getSelectedIndex();
             
@@ -1053,26 +1051,26 @@ public class TelaEditarAgendamento extends javax.swing.JFrame {
             if(cmbAnimal.getSelectedIndex() == -1 || data.isEmpty() || hora.isEmpty() || cmbProcedimento.getSelectedIndex() == -1){
                 JOptionPane.showMessageDialog(null, "Todos os campos devem estar preenchidos.");
                 return;
-                
-            } else {
-                if(validador.validarData(data) && validador.validarHora(hora)){
-
-                    DateTimeFormatter formatterDataHora = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-                    LocalDateTime dataHora = LocalDateTime.parse(data + " " + hora, formatterDataHora);
-                    
-                    Procedimento agendamentoNovo = new Procedimento(agendamento.getId(), dataHora, tipo, status, animal, usuario, anotacoes);
-                    procedimentoService.editar(agendamentoNovo);
-                    JOptionPane.showMessageDialog(null, "Agendamento editado com sucesso.");
-                } else {
-                    return;
-                }
             }
+                
+            Procedimento agendamentoNovo = new Procedimento();
+            
+            agendamentoNovo.setId(agendamento.getId());
+            agendamentoNovo.setTipo(tipo);
+            agendamentoNovo.setStatus(status);
+            agendamentoNovo.setAnimal(animal);
+            agendamentoNovo.setAnotacoes(anotacoes);
+            
+            procedimentoService.editar(agendamentoNovo, data, hora);
+            
+            JOptionPane.showMessageDialog(null, "Agendamento editado com sucesso.");
+                
         } catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
         } catch (Exception e){
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         
         new TelaAgendamentos(usuario).setVisible(true);

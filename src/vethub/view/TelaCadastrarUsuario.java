@@ -1058,39 +1058,36 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
             
             if(nome.isEmpty() || cpf.isEmpty() || email.isEmpty() || telefone.isEmpty() || cargo.isEmpty() || rua.isEmpty() || bairro.isEmpty() || cep.isEmpty() || cidade.isEmpty() || estado.isEmpty()){
                 JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos.");
-            } else {
-                
-                ValidadorService validador = new ValidadorService();
-                
-                if(validador.validarCpf(cpf) && validador.validarEmail(email) && validador.validarTelefone(telefone) && validador.validarCep(cep)){
-                    Endereco e = new Endereco();
-                    e.setRuaNumero(rua);
-                    e.setBairro(bairro);
-                    e.setCidade(cidade);
-                    e.setEstado(estado);
-                    e.setCep(cep);
-                    
-                    Usuario u = new Usuario();
-                    u.setNome(nome);
-                    u.setCpf(cpf);
-                    u.setCargo(cargo);
-                    u.setEmail(email);
-                    u.setTelefone(telefone);
-                    u.setEndereco(e);
-                    
-                    usuarioService.cadastrar(u);
-                    JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso.");
-                    
-                    new TelaCriarAcesso(usuario, u).setVisible(true);
-                    this.dispose();
-                }
+                return;
             }
+            
+            Endereco e = new Endereco();
+            e.setRuaNumero(rua);
+            e.setBairro(bairro);
+            e.setCidade(cidade);
+            e.setEstado(estado);
+            e.setCep(cep);
+
+            Usuario u = new Usuario();
+            u.setNome(nome);
+            u.setCpf(cpf);
+            u.setCargo(cargo);
+            u.setEmail(email);
+            u.setTelefone(telefone);
+            u.setEndereco(e);
+
+            usuarioService.cadastrar(u);
+            JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso.");
+
+            new TelaCriarAcesso(usuario, u).setVisible(true);
+            this.dispose();
+            
         } catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
         } catch (Exception e){
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 

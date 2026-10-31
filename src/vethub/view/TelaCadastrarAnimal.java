@@ -1218,47 +1218,45 @@ public class TelaCadastrarAnimal extends javax.swing.JFrame {
             
             if(nome.isEmpty() || cmbEspecie.getSelectedIndex() == -1 || cmbTutor.getSelectedIndex() == -1 || cmbSexo.getSelectedIndex() == -1){
                 JOptionPane.showMessageDialog(null, "Os campos com asterisco são obrigatórios.");
-            } else {
-                
-                ValidadorService validador = new ValidadorService();
-                if((nascimento.isEmpty() || validador.validarData(nascimento)) && (peso.isEmpty() || validador.validarPeso(peso))){
-                    
-                    int i = cmbTutor.getSelectedIndex();
-                    
-                    Cliente tutor = clienteService.buscarPorId(clientes.get(i).getId());
-                    
-                    LocalDate data = null;
-                    if(!nascimento.isEmpty()){
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                        data = LocalDate.parse(nascimento, formatter);
-                    }
-                    
-                    Double pesoDouble = null;
-                    if(!peso.isEmpty()){
-                        pesoDouble = Double.valueOf(peso);
-                    }
-                    
-                    Animal a = new Animal();
-                    a.setNome(nome);
-                    a.setEspecie(especie);
-                    a.setRaca(raca);
-                    a.setSexo(sexo);
-                    a.setPeso(pesoDouble);
-                    a.setDataNascimento(data);
-                    a.setTutor(tutor);
-                    
-                    animalService.cadastrar(a);    
-                    this.dispose();
-                    new TelaAnimais(usuario).setVisible(true);
-                }
-                JOptionPane.showMessageDialog(null, "Animal cadastrado com sucesso.");
+                return;
             }
+            
+            int i = cmbTutor.getSelectedIndex();
+
+            Cliente tutor = clienteService.buscarPorId(clientes.get(i).getId());
+
+            LocalDate data = null;
+            if(!nascimento.isEmpty()){
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                data = LocalDate.parse(nascimento, formatter);
+            }
+
+            Double pesoDouble = null;
+            if(!peso.isEmpty()){
+                pesoDouble = Double.valueOf(peso);
+            }
+
+            Animal a = new Animal();
+            a.setNome(nome);
+            a.setEspecie(especie);
+            a.setRaca(raca);
+            a.setSexo(sexo);
+            a.setPeso(pesoDouble);
+            a.setDataNascimento(data);
+            a.setTutor(tutor);
+
+            animalService.cadastrar(a);    
+            this.dispose();
+            new TelaAnimais(usuario).setVisible(true);
+
+            JOptionPane.showMessageDialog(null, "Animal cadastrado com sucesso.");
+            
         } catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
         } catch (Exception e){
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 

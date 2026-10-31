@@ -1081,7 +1081,7 @@ public class TelaNovoAgendamento extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
             } catch (Exception e){
                 System.out.println(e.getMessage());
-                JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+                JOptionPane.showMessageDialog(null, e.getMessage());
             }
             
         }
@@ -1129,8 +1129,6 @@ public class TelaNovoAgendamento extends javax.swing.JFrame {
     }//GEN-LAST:event_lblSairMouseClicked
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        ValidadorService validador = new ValidadorService();
-        
         if(cmbAnimal.getSelectedIndex() == -1 || txtData.getText().isEmpty() || txtHora.getText().isEmpty() || cmbProcedimento.getSelectedIndex() == -1){
             JOptionPane.showMessageDialog(null, "Todos os campos devem estar preenchidos.");
             return;
@@ -1145,40 +1143,26 @@ public class TelaNovoAgendamento extends javax.swing.JFrame {
             String tipo = (String) cmbProcedimento.getSelectedItem();
             String status = "agendada";
             String anotacoes = null;
-            
 
-            
-            if(validador.validarData(data) && validador.validarHora(hora)){
+            Procedimento p = new Procedimento();
+            p.setTipo(tipo);
+            p.setStatus(status);
+            p.setAnotacoes(anotacoes);
+            p.setAnimal(animal);
+            p.setVeterinario(usuario);
 
-                DateTimeFormatter formatterDataHora = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-                LocalDateTime dataHora = LocalDateTime.parse(data + " " + hora, formatterDataHora);
-                    
-                if(!procedimentoService.verificarDisponibilidade(dataHora)){
-                    JOptionPane.showMessageDialog(null, "Já existe um agendamento para esta data e horário.");
-                    return;
-                }
-                    
-                Procedimento p = new Procedimento();
-                p.setDataHora(dataHora);
-                p.setTipo(tipo);
-                p.setStatus(status);
-                p.setAnotacoes(anotacoes);
-                p.setAnimal(animal);
-                p.setVeterinario(usuario);
-                    
-                procedimentoService.salvar(p);
-                JOptionPane.showMessageDialog(null, "Agendamento realizado com sucesso.");
-                    
-                new TelaAgendamentos(usuario).setVisible(true);
-                this.dispose();
-            }
-            
+            procedimentoService.salvar(p, data, hora);
+            JOptionPane.showMessageDialog(null, "Agendamento realizado com sucesso.");
+
+            new TelaAgendamentos(usuario).setVisible(true);
+            this.dispose();
+        
         } catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
         } catch (Exception e){
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 

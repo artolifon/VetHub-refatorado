@@ -50,10 +50,14 @@ public class UsuarioDAO {
         
      }
     
-    public Usuario validar(String login, String senha) throws ClassNotFoundException, SQLException{
+    public Usuario validar(String login, String senha) throws ClassNotFoundException, SQLException, Exception{
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
+            }
+            
+            if(login == null || login.isEmpty() || senha == null || senha.isEmpty()){
+                throw new Exception("Os campos devem ser preenchidos.");
             }
 
             Usuario u = null;

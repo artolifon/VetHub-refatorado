@@ -12,14 +12,37 @@ import vethub.repository.UsuarioDAO;
  * @author Arthur
  */
 public class UsuarioService {
-    private final UsuarioDAO usuarioDao = new UsuarioDAO();
+    private final UsuarioDAO usuarioDao;
+    private final ValidadorService validador;
     
-    public Usuario validar(String login, String senha) throws ClassNotFoundException, SQLException{
+    public UsuarioService(){
+        this.usuarioDao = new UsuarioDAO();
+        this.validador = new ValidadorService();
+    }
+    
+    public Usuario validar(String login, String senha) throws ClassNotFoundException, SQLException, Exception{
         Usuario usuario = usuarioDao.validar(login, senha);
+        
+        if(usuario == null){
+            throw new Exception("Usuário ou senha inválidos.");
+        }
         return usuario;
     }
     
-    public void cadastrar(Usuario usuario) throws ClassNotFoundException, SQLException{
+    public void cadastrar(Usuario usuario) throws ClassNotFoundException, SQLException, Exception{
+        
+        if(!validador.validarCpf(usuario.getCpf())){
+            throw new Exception("Formato de CPF inválido.");
+        }
+        
+        if(!validador.validarEmail(usuario.getEmail())){
+            throw new Exception("Formato de e-mail inválido.");
+        }
+        
+        if(!validador.validarTelefone(usuario.getTelefone())){
+            throw new Exception("Formato de telefone inválido.");
+        }
+        
         usuarioDao.cadastrar(usuario);
     }
     
@@ -31,7 +54,19 @@ public class UsuarioService {
         return usuarioDao.buscarTodos();
     }
     
-    public void editar(Usuario usuario) throws ClassNotFoundException, SQLException{
+    public void editar(Usuario usuario) throws ClassNotFoundException, SQLException, Exception{
+        if(!validador.validarCpf(usuario.getCpf())){
+            throw new Exception("Formato de CPF inválido.");
+        }
+        
+        if(!validador.validarEmail(usuario.getEmail())){
+            throw new Exception("Formato de e-mail inválido.");
+        }
+        
+        if(!validador.validarTelefone(usuario.getTelefone())){
+            throw new Exception("Formato de telefone inválido.");
+        }
+        
         usuarioDao.editar(usuario);
     }
     

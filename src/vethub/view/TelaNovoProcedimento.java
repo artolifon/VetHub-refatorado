@@ -992,8 +992,6 @@ public class TelaNovoProcedimento extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        ValidadorService validador = new ValidadorService();
-        
         try{
             String data = txtData.getText().trim().replace(".","/").replace("-","/");
             String hora = txtHora.getText().trim().replace("h", ":");
@@ -1003,30 +1001,23 @@ public class TelaNovoProcedimento extends javax.swing.JFrame {
             
             if(data.isEmpty() || hora.isEmpty() || cmbProcedimento.getSelectedIndex() == -1 || cmbStatus.getSelectedIndex() == -1 || anotacoes.isEmpty()){
                 JOptionPane.showMessageDialog(null, "Todos os campos devem estar preenchidos.");
-            } else {
-                if(validador.validarData(data) && validador.validarHora(hora)){
-
-                    DateTimeFormatter formatterDataHora = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-                    LocalDateTime dataHora = LocalDateTime.parse(data + " " + hora, formatterDataHora);
-                    
-                    Procedimento p = new Procedimento();
-                    p.setDataHora(dataHora);
-                    p.setTipo(tipo);
-                    p.setStatus(status);
-                    p.setAnimal(animal);
-                    p.setVeterinario(usuario);
-
-                    procedimentoService.salvar(p);
-                    JOptionPane.showMessageDialog(null, "Procedimento salvo com sucesso.");
-                }
             }
+            
+            Procedimento p = new Procedimento();
+            p.setTipo(tipo);
+            p.setStatus(status);
+            p.setAnimal(animal);
+            p.setVeterinario(usuario);
+
+            procedimentoService.salvar(p, data, hora);
+            JOptionPane.showMessageDialog(null, "Procedimento salvo com sucesso.");
             
         } catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
         } catch (Exception e){
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         
         

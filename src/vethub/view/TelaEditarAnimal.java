@@ -1175,50 +1175,43 @@ public class TelaEditarAnimal extends javax.swing.JFrame {
             if(nome.isEmpty() || cmbEspecie.getSelectedIndex() == -1 || cmbTutor.getSelectedIndex() == -1 || cmbSexo.getSelectedIndex() == -1){
                 JOptionPane.showMessageDialog(null, "Os campos com asterisco são obrigatórios.");
                 return;
-            } else {
-                
-                ValidadorService validador = new ValidadorService();
-                if((txtNascimento.getText().isEmpty() || validador.validarData(nascimento)) && (txtPeso.getText().isEmpty() || validador.validarPeso(peso))){
-                    
-                    int i = cmbTutor.getSelectedIndex();
-                    
-                    Cliente tutor = clienteService.buscarPorId(clientes.get(i).getId());
-                    
-                    LocalDate data = null;
-                    
-                    if(!nascimento.isEmpty()){
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                        data = LocalDate.parse(nascimento, formatter); 
-                    }
-                    
-                    
-                    Double pesoDouble = null;
-                    
-                    if(!peso.isEmpty()){
-                        pesoDouble = Double.valueOf(peso);
-                    }
-                    
-                    animal.setNome(nome);
-                    animal.setEspecie(especie);
-                    animal.setRaca(raca);
-                    animal.setDataNascimento(data);
-                    animal.setPeso(pesoDouble);
-                    animal.setSexo(sexo);
-                    animal.setTutor(tutor);    
-                    
-                    animalService.editar(animal);
-                    JOptionPane.showMessageDialog(null, "Animal editado com sucesso.");
-                } else {
-                    return;
-                }
             }
+            
+            int i = cmbTutor.getSelectedIndex();
+                    
+            Cliente tutor = clienteService.buscarPorId(clientes.get(i).getId());
+
+            LocalDate data = null;
+
+            if(!nascimento.isEmpty()){
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                data = LocalDate.parse(nascimento, formatter); 
+            }
+
+
+            Double pesoDouble = null;
+
+            if(!peso.isEmpty()){
+                pesoDouble = Double.valueOf(peso);
+            }
+
+            animal.setNome(nome);
+            animal.setEspecie(especie);
+            animal.setRaca(raca);
+            animal.setDataNascimento(data);
+            animal.setPeso(pesoDouble);
+            animal.setSexo(sexo);
+            animal.setTutor(tutor);    
+
+            animalService.editar(animal);
+            JOptionPane.showMessageDialog(null, "Animal editado com sucesso.");
             
         } catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
         } catch (Exception e){
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         
         new TelaAnimais(usuario).setVisible(true);

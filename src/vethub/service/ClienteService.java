@@ -14,10 +14,12 @@ import vethub.repository.ClienteDAO;
  * @author Arthur
  */
 public class ClienteService {
-    public ClienteDAO clienteDao;
+    private final ClienteDAO clienteDao;
+    private final ValidadorService validador;
     
     public ClienteService(){
-        clienteDao = new ClienteDAO();
+        this.clienteDao = new ClienteDAO();
+        this.validador = new ValidadorService();
     }
     
     public List<Cliente> buscarTodos() throws ClassNotFoundException, SQLException{
@@ -32,11 +34,34 @@ public class ClienteService {
         return clienteDao.filtrarAnimais(tutor);
     }
     
-    public void cadastrar(Cliente cliente) throws ClassNotFoundException, SQLException{
+    public void cadastrar(Cliente cliente) throws ClassNotFoundException, SQLException, Exception{
+        if (!validador.validarTelefone(cliente.getTelefone())) {
+            throw new Exception("Formato de telefone inválido.");
+        }
+        
+        if(!(cliente.getCpf() == null || cliente.getCpf().isEmpty()) && !validador.validarCpf(cliente.getCpf())){
+            throw new Exception("Formato de CPF inválido.");
+        }
+        
+        if(!(cliente.getEmail() == null || cliente.getEmail().isEmpty()) && !validador.validarEmail(cliente.getEmail())){
+            throw new Exception("Formato de e-mail inválido.");
+        }
+        
         clienteDao.cadastrar(cliente);
     }
     
-    public void editar(Cliente cliente) throws ClassNotFoundException, SQLException{
+    public void editar(Cliente cliente) throws ClassNotFoundException, SQLException, Exception{
+        if (!validador.validarTelefone(cliente.getTelefone())) {
+            throw new Exception("Formato de telefone inválido.");
+        }
+        
+        if(!(cliente.getCpf() == null || cliente.getCpf().isEmpty()) && !validador.validarCpf(cliente.getCpf())){
+            throw new Exception("Formato de CPF inválido.");
+        }
+        
+        if(!(cliente.getEmail() == null || cliente.getEmail().isEmpty()) && !validador.validarEmail(cliente.getEmail())){
+            throw new Exception("Formato de e-mail inválido.");
+        }
         clienteDao.editar(cliente);
     }
     
