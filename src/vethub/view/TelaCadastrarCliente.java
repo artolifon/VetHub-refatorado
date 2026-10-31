@@ -1051,6 +1051,10 @@ public class TelaCadastrarCliente extends javax.swing.JFrame {
             e.setCidade(cidade);
             e.setEstado(estado);
             e.setCep(cep);
+            
+            int enderecoId = enderecoService.cadastrar(e);
+            
+            e.setId(enderecoId);
 
             Cliente c = new Cliente();
             c.setNome(nome);

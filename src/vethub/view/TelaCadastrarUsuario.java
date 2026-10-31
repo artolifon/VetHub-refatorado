@@ -12,6 +12,7 @@ import vethub.model.Endereco;
 import vethub.service.ValidadorService;
 import vethub.service.UsuarioService;
 import javax.swing.JOptionPane;
+import vethub.service.EnderecoService;
 
 /**
  *
@@ -22,6 +23,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
     private final Usuario usuario;
     private final MenuUtil menuService;
     private final UsuarioService usuarioService;
+    private final EnderecoService enderecoService;
     
     public TelaCadastrarUsuario(Usuario usuario) {
         initComponents();
@@ -30,6 +32,7 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
         this.usuario = usuario;
         this.menuService = new MenuUtil(usuario);
         this.usuarioService = new UsuarioService();
+        this.enderecoService = new EnderecoService();
         
         lblUsuario.setText(usuario.getNome());
         
@@ -1067,6 +1070,10 @@ public class TelaCadastrarUsuario extends javax.swing.JFrame {
             e.setCidade(cidade);
             e.setEstado(estado);
             e.setCep(cep);
+            
+            int enderecoId = enderecoService.cadastrar(e);
+            
+            e.setId(enderecoId);
 
             Usuario u = new Usuario();
             u.setNome(nome);

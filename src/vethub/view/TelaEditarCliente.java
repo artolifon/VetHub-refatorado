@@ -12,6 +12,7 @@ import vethub.model.Procedimento;
 import vethub.model.Usuario;
 import vethub.service.ClienteService;
 import vethub.service.ValidadorService;
+import vethub.service.EnderecoService;
 
 /**
  *
@@ -22,6 +23,7 @@ public class TelaEditarCliente extends javax.swing.JFrame {
     private final Usuario usuario;
     private final MenuUtil menuService;
     private final ClienteService clienteService;
+    private final EnderecoService enderecoService;
     private Cliente cliente;
     
     public TelaEditarCliente(Usuario usuario, Cliente cliente) {
@@ -32,6 +34,7 @@ public class TelaEditarCliente extends javax.swing.JFrame {
         this.cliente = cliente;
         this.clienteService = new ClienteService();
         this.menuService = new MenuUtil(usuario);
+        this.enderecoService = new EnderecoService();
         
         
         lblUsuario.setText(usuario.getNome());
@@ -1055,6 +1058,10 @@ public class TelaEditarCliente extends javax.swing.JFrame {
             e.setCidade(cidade);
             e.setEstado(estado);
             e.setCep(cep);
+            
+            int enderecoId = enderecoService.cadastrar(e);
+            
+            e.setId(enderecoId);
 
             Cliente c = new Cliente();
             c.setId(cliente.getId());

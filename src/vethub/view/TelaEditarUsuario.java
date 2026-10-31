@@ -12,6 +12,7 @@ import vethub.model.Usuario;
 import vethub.model.Endereco;
 import vethub.service.ValidadorService;
 import vethub.service.UsuarioService;
+import vethub.service.EnderecoService;
 
 /**
  *
@@ -21,8 +22,9 @@ public class TelaEditarUsuario extends javax.swing.JFrame {
     
     private final Usuario usuario;
     private final MenuUtil menuService;
-    private Usuario usuarioSelecionado;
-    private UsuarioService usuarioService;
+    private final EnderecoService enderecoService;
+    private final Usuario usuarioSelecionado;
+    private final UsuarioService usuarioService;
     
     public TelaEditarUsuario(Usuario usuario, Usuario usuarioSelecionado) {
         initComponents();
@@ -32,6 +34,7 @@ public class TelaEditarUsuario extends javax.swing.JFrame {
         this.usuarioSelecionado = usuarioSelecionado;
         this.menuService = new MenuUtil(usuario);
         this.usuarioService = new UsuarioService();
+        this.enderecoService = new EnderecoService();
         
         lblUsuario.setText(usuario.getNome());
         
@@ -1065,7 +1068,9 @@ public class TelaEditarUsuario extends javax.swing.JFrame {
             e.setEstado(estado);
             e.setCep(cep);
 
-
+            int enderecoId = enderecoService.cadastrar(e);
+            
+            e.setId(enderecoId);
 
             String login = usuarioSelecionado.getLogin();
             String senha = usuarioSelecionado.getSenha();
