@@ -1147,6 +1147,11 @@ public class TelaAgendamentos extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         int i = tbl.getSelectedRow();
         
+        if(i == -1){
+            JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela.");
+            return;
+        } 
+        
         int procedimentoId = procedimentos.get(i).getId();
         
         try{

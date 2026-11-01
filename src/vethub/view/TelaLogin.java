@@ -16,7 +16,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private Usuario usuario;
     private final UsuarioService usuarioService;
     private final ValidadorService validador;
-    private final PermissaoService permissao;
+    private PermissaoService permissao;
             
     /**
      * Creates new form LoginScreen
@@ -24,7 +24,6 @@ public class TelaLogin extends javax.swing.JFrame {
     public TelaLogin() {
         this.usuarioService = new UsuarioService();
         this.validador = new ValidadorService();
-        this.permissao = new PermissaoService(usuario);
         
         initComponents();
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
@@ -349,13 +348,14 @@ public class TelaLogin extends javax.swing.JFrame {
             }
             
             this.usuario = usuarioService.validar(txtLogin.getText().trim(), txtSenha.getText());
+            this.permissao = new PermissaoService(usuario);
             
             this.dispose();
             
             if(permissao.temPermissaoGerente()){
-                new TelaPainelGerente(usuario).setVisible(true);
+                new TelaPainelGerente(this.usuario).setVisible(true);
             } else {
-                new TelaPainel(usuario).setVisible(true);
+                new TelaPainel(this.usuario).setVisible(true);
             }
         } catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());

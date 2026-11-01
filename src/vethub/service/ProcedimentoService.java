@@ -32,7 +32,7 @@ public class ProcedimentoService {
             throw new Exception("A hora deve estar no formato hh:mm.");
         }
         
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         LocalDateTime dataHora = LocalDateTime.parse(data + " " + hora, formatter);
         
         if(!verificarDisponibilidade(dataHora)){
@@ -53,7 +53,7 @@ public class ProcedimentoService {
             throw new Exception("A hora deve estar no formato hh:mm.");
         }
         
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         LocalDateTime dataHora = LocalDateTime.parse(data + " " + hora, formatter);
         
         if(!verificarDisponibilidade(dataHora)){
