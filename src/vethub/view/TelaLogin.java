@@ -5,6 +5,7 @@ import vethub.model.Usuario;
 import vethub.service.ValidadorService;
 import javax.swing.JOptionPane;
 import vethub.service.UsuarioService;
+import vethub.service.PermissaoService;
 
 /**
  *
@@ -15,6 +16,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private Usuario usuario;
     private final UsuarioService usuarioService;
     private final ValidadorService validador;
+    private final PermissaoService permissao;
             
     /**
      * Creates new form LoginScreen
@@ -22,6 +24,7 @@ public class TelaLogin extends javax.swing.JFrame {
     public TelaLogin() {
         this.usuarioService = new UsuarioService();
         this.validador = new ValidadorService();
+        this.permissao = new PermissaoService(usuario);
         
         initComponents();
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
@@ -349,9 +352,9 @@ public class TelaLogin extends javax.swing.JFrame {
             
             this.dispose();
             
-            if(usuario.getCargo().equals("GERENTE")){
+            if(permissao.temPermissaoGerente()){
                 new TelaPainelGerente(usuario).setVisible(true);
-            } else if(usuario.getCargo().equals("ATENDENTE") || usuario.getCargo().equals("VETERINARIO")){
+            } else {
                 new TelaPainel(usuario).setVisible(true);
             }
         } catch(ClassNotFoundException | SQLException e){

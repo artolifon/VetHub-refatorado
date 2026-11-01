@@ -21,6 +21,7 @@ public class TelaAnimais extends javax.swing.JFrame {
     private final MenuUtil menuService;
     private final AnimalService animalService;
     private List<Animal> animais;
+    private final PermissaoService permissao;
 
     public TelaAnimais(Usuario usuario) {
         initComponents();
@@ -30,6 +31,7 @@ public class TelaAnimais extends javax.swing.JFrame {
         this.animais = new ArrayList();
         this.menuService = new MenuUtil(usuario);
         this.animalService = new AnimalService();
+        this.permissao = new PermissaoService(usuario);
         
         lblUsuario.setText(usuario.getNome());
         
@@ -48,7 +50,7 @@ public class TelaAnimais extends javax.swing.JFrame {
         
         menuService.carregarMenu(btn7);
         
-        if(usuario.getCargo().equals("VETERINARIO")){
+        if(permissao.temPermissaoVeterinario()){
             btnPrincipal.setText("Prontuário");
             btnPrincipal.getAccessibleContext().setAccessibleName("Prontuário");
             btnPrincipal.getAccessibleContext().setAccessibleDescription("Acessar o prontuário do animal selecionado.");
@@ -1203,7 +1205,7 @@ public class TelaAnimais extends javax.swing.JFrame {
         }
         
         this.dispose();
-        if(usuario.getCargo().equals("VETERINARIO")){
+        if(permissao.temPermissaoVeterinario()){
             new TelaProntuario(usuario, animais.get(i)).setVisible(true);
         } else {
             new TelaNovoAgendamento(usuario, animais.get(i)).setVisible(true);

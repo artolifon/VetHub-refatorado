@@ -9,6 +9,7 @@ import vethub.model.Usuario;
 import vethub.service.ProcedimentoService;
 import vethub.service.AnimalService;
 import vethub.service.ClienteService;
+import vethub.service.PermissaoService;
 
 /**
  *
@@ -17,6 +18,7 @@ import vethub.service.ClienteService;
 public class TelaPainel extends javax.swing.JFrame {
     private final Usuario usuario;
     private final MenuUtil menuService;
+    private final PermissaoService permissao;
 
     /**
      * Creates new form TelaDashboardGerente
@@ -27,13 +29,15 @@ public class TelaPainel extends javax.swing.JFrame {
         
         this.usuario = usuario;
         this.menuService = new MenuUtil(usuario);
+        this.permissao = new PermissaoService(usuario);
         
         lblUsuario.setText(usuario.getNome());
         
-        if(usuario.getCargo().equals("ATENDENTE")){
-            lblTitulo.setText("PAINEL DO ATENDENTE");
-        } else if(usuario.getCargo().equals("VETERINARIO")){
+        
+        if(permissao.temPermissaoVeterinario()){
             lblTitulo.setText("PAINEL DO VETERINÁRIO");
+        } else {
+            lblTitulo.setText("PAINEL DO ATENDENTE");
         }
         
         ProcedimentoService procedimentoService = new ProcedimentoService();

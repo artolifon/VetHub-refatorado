@@ -9,6 +9,7 @@ import vethub.service.ClienteService;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import vethub.service.PermissaoService;
 
 /**
  *
@@ -20,6 +21,7 @@ public class TelaClientes extends javax.swing.JFrame {
     private final MenuUtil menuService;
     private final ClienteService clienteService;
     private List<Cliente> clientes;
+    private final PermissaoService permissao;
     
     /**
      * Creates new form TelaDashboardGerente
@@ -32,6 +34,7 @@ public class TelaClientes extends javax.swing.JFrame {
         this.clientes = new ArrayList();
         this.menuService = new MenuUtil(usuario);
         this.clienteService = new ClienteService();
+        this.permissao = new PermissaoService(usuario);
         
         lblUsuario.setText(usuario.getNome());
         
@@ -52,7 +55,7 @@ public class TelaClientes extends javax.swing.JFrame {
         
         txtCliente.requestFocusInWindow();
         
-        if(usuario.getCargo().equals("VETERINARIO")){
+        if(permissao.temPermissaoVeterinario()){
             btnAgendar.setEnabled(false);
         }
     }
