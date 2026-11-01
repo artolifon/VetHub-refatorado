@@ -3,8 +3,6 @@ package vethub.service;
 import java.sql.SQLException;
 import vethub.model.Usuario;
 import java.util.List;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import vethub.repository.UsuarioDAO;
 
 /**
@@ -74,22 +72,22 @@ public class UsuarioService {
         usuarioDao.excluir(id);
     }
     
-    public void preencherTabela(JTable table, List<Usuario> usuarios){
-        if(usuarios == null){
-            return;
-        }
-        
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        
-        model.setRowCount(0);
-        
-        for(Usuario u : usuarios){
-            
-            String[] linha = {u.getNome(), u.getCpf(), u.getEmail(), u.getTelefone(), u.getCargo()};
-            
-            model.addRow(linha);
-        }
-    }
+//    public void preencherTabela(JTable table, List<Usuario> usuarios){
+//        if(usuarios == null){
+//            return;
+//        }
+//        
+//        DefaultTableModel model = (DefaultTableModel) table.getModel();
+//        
+//        model.setRowCount(0);
+//        
+//        for(Usuario u : usuarios){
+//            
+//            String[] linha = {u.getNome(), u.getCpf(), u.getEmail(), u.getTelefone(), u.getCargo()};
+//            
+//            model.addRow(linha);
+//        }
+//    }
     
     public int contarTodos() throws ClassNotFoundException, SQLException{
         return usuarioDao.contarTodos();

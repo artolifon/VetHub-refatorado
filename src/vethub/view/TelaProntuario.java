@@ -7,6 +7,8 @@ import vethub.model.Procedimento;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import vethub.model.Usuario;
 import vethub.service.AnimalService;
 import vethub.service.ProcedimentoService;
@@ -113,7 +115,7 @@ public class TelaProntuario extends javax.swing.JFrame {
         
         try{
             procedimentos = procedimentoService.buscarPorAnimal(animal);
-            procedimentoService.preencherTabela(tbl, procedimentos);
+            preencherTabela(tbl, procedimentos);
         } catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
@@ -125,6 +127,24 @@ public class TelaProntuario extends javax.swing.JFrame {
         getRootPane().setDefaultButton(btnNovo);
         
         txtData.requestFocusInWindow();
+    }
+    
+    public void preencherTabela(JTable table, List<Procedimento> procedimentos){
+        if(procedimentos == null){
+            return;
+        }
+        
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+       
+        for(Procedimento p : procedimentos){
+            String data = p.getDataHora().format(formatter);
+            String[] procedimento = {data, p.getTipo(), p.getStatus(), p.getVeterinario().getNome()};
+            
+            model.addRow(procedimento);             
+        }
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -1454,7 +1474,7 @@ public class TelaProntuario extends javax.swing.JFrame {
                     procedimentoService.excluir(id);
                     procedimentos.clear();
                     procedimentos = procedimentoService.buscarPorAnimal(animal);
-                    procedimentoService.preencherTabela(tbl, procedimentos);
+                    preencherTabela(tbl, procedimentos);
                 } catch(ClassNotFoundException | SQLException e){
                     System.out.println(e.getMessage());
                     JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
@@ -1580,7 +1600,7 @@ public class TelaProntuario extends javax.swing.JFrame {
         
         try{
             procedimentos = procedimentoService.filtrarProntuario(animal.getId(), veterinarioId, data, status, tipo);
-            procedimentoService.preencherTabela(tbl, procedimentos);
+            preencherTabela(tbl, procedimentos);
         } catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
@@ -1616,7 +1636,7 @@ public class TelaProntuario extends javax.swing.JFrame {
         procedimentos.clear();
         try{
                 procedimentos = procedimentoService.filtrarProntuario(animal.getId(), veterinarioId, data, status, tipo);
-                procedimentoService.preencherTabela(tbl, procedimentos);
+                preencherTabela(tbl, procedimentos);
         } catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
@@ -1655,7 +1675,7 @@ public class TelaProntuario extends javax.swing.JFrame {
         procedimentos.clear();
         try{
             procedimentos = procedimentoService.filtrarProntuario(animal.getId(), veterinarioId, data, status, tipo);
-            procedimentoService.preencherTabela(tbl, procedimentos);   
+            preencherTabela(tbl, procedimentos);   
         } catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
@@ -1691,7 +1711,7 @@ public class TelaProntuario extends javax.swing.JFrame {
         procedimentos.clear();
         try{
             procedimentos = procedimentoService.filtrarProntuario(animal.getId(), veterinarioId, data, status, tipo);
-            procedimentoService.preencherTabela(tbl, procedimentos);   
+            preencherTabela(tbl, procedimentos);   
         } catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");

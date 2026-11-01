@@ -5,8 +5,6 @@ import java.time.LocalDateTime;
 import vethub.model.Procedimento;
 import vethub.model.Animal;
 import java.util.List;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import vethub.repository.ProcedimentoDAO;
 import java.time.format.DateTimeFormatter;
 
@@ -71,45 +69,6 @@ public class ProcedimentoService {
     
     public boolean verificarDisponibilidade(LocalDateTime dataHora) throws ClassNotFoundException, SQLException{
         return procedimentoDao.verificarDisponibilidade(dataHora);
-    }
-    
-    public void preencherTabela(JTable table, List<Procedimento> procedimentos){
-        if(procedimentos == null){
-            return;
-        }
-        
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        model.setRowCount(0);
-        
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-       
-        for(Procedimento p : procedimentos){
-            String data = p.getDataHora().format(formatter);
-            String[] procedimento = {data, p.getTipo(), p.getStatus(), p.getVeterinario().getNome()};
-            
-            model.addRow(procedimento);             
-        }
-    }
-    
-    public void preencherTabelaAgendamentos(JTable table, List<Procedimento> procedimentos){
-        if(procedimentos == null){
-            return;
-        }
-        
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        model.setRowCount(0);
-        
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH:mm");
-       
-        
-        for(Procedimento p : procedimentos){
-            String data = p.getDataHora().format(formatter);
-            String hora = p.getDataHora().format(formatterHora);
-            String[] procedimento = {data, hora, p.getAnimal().getNome(), p.getAnimal().getTutor().getNome(), p.getTipo()};
-            
-            model.addRow(procedimento);             
-        }
     }
     
     public void excluir(int id) throws ClassNotFoundException, SQLException{

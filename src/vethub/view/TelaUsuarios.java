@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import vethub.model.Usuario;
 import vethub.service.UsuarioService;
 
@@ -44,11 +46,27 @@ public class TelaUsuarios extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
         }
         
-        usuarioService.preencherTabela(tbl, usuarios);
+        preencherTabela(tbl, usuarios);
         
         getRootPane().setDefaultButton(btnNovo);
         
         txtUsuario.requestFocusInWindow();
+    }
+    public void preencherTabela(JTable table, List<Usuario> usuarios){
+        if(usuarios == null){
+            return;
+        }
+        
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        
+        model.setRowCount(0);
+        
+        for(Usuario u : usuarios){
+            
+            String[] linha = {u.getNome(), u.getCpf(), u.getEmail(), u.getTelefone(), u.getCargo()};
+            
+            model.addRow(linha);
+        }
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -1054,7 +1072,7 @@ public class TelaUsuarios extends javax.swing.JFrame {
             usuarios.clear();
             try{
                 usuarios = usuarioService.buscarTodos();
-                usuarioService.preencherTabela(tbl, usuarios);            
+                preencherTabela(tbl, usuarios);            
             } catch(ClassNotFoundException | SQLException e){
                 System.out.println(e.getMessage());
                 JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
@@ -1076,7 +1094,7 @@ public class TelaUsuarios extends javax.swing.JFrame {
             usuarios.clear();
             try{
                 usuarios = usuarioService.filtrar(nome, "GERENTE");
-                usuarioService.preencherTabela(tbl, usuarios);
+                preencherTabela(tbl, usuarios);
             } catch(ClassNotFoundException | SQLException e){
                 System.out.println(e.getMessage());
                 JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
@@ -1098,7 +1116,7 @@ public class TelaUsuarios extends javax.swing.JFrame {
             usuarios.clear();
             try{
                 usuarios = usuarioService.filtrar(nome, "ATENDENTE");
-                usuarioService.preencherTabela(tbl, usuarios);            
+                preencherTabela(tbl, usuarios);            
             } catch(ClassNotFoundException | SQLException e){
                 System.out.println(e.getMessage());
                 JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
@@ -1121,7 +1139,7 @@ public class TelaUsuarios extends javax.swing.JFrame {
             
             try{
                 usuarios = usuarioService.filtrar(nome, "VETERINARIO");
-                usuarioService.preencherTabela(tbl, usuarios);            
+                preencherTabela(tbl, usuarios);            
             } catch(ClassNotFoundException | SQLException e){
                 System.out.println(e.getMessage());
                 JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
@@ -1148,7 +1166,7 @@ public class TelaUsuarios extends javax.swing.JFrame {
                 
                 try{
                     usuarioService.excluir(id);
-                    usuarioService.preencherTabela(tbl, usuarioService.buscarTodos());        
+                    preencherTabela(tbl, usuarioService.buscarTodos());        
                 } catch(ClassNotFoundException | SQLException e){
                     System.out.println(e.getMessage());
                     JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
@@ -1219,7 +1237,7 @@ public class TelaUsuarios extends javax.swing.JFrame {
             usuarios.clear();
             
             usuarios = usuarioService.filtrar(busca, cargo);
-            usuarioService.preencherTabela(tbl, usuarios);  
+            preencherTabela(tbl, usuarios);  
         } catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");

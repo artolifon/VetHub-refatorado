@@ -1,6 +1,7 @@
 package vethub.view;
 
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import vethub.model.Animal;
@@ -11,6 +12,8 @@ import vethub.service.AnimalService;
 import vethub.service.ProcedimentoService;
 import vethub.service.ClienteService;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -86,10 +89,31 @@ public class TelaAgendamentos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
         }
         
-        procedimentoService.preencherTabelaAgendamentos(tbl, procedimentos);
+        preencherTabelaAgendamentos(tbl, procedimentos);
         
         cmbAnimal.requestFocusInWindow();
         
+    }
+    
+    public void preencherTabelaAgendamentos(JTable table, List<Procedimento> procedimentos){
+        if(procedimentos == null){
+            return;
+        }
+        
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH:mm");
+       
+        
+        for(Procedimento p : procedimentos){
+            String data = p.getDataHora().format(formatter);
+            String hora = p.getDataHora().format(formatterHora);
+            String[] procedimento = {data, hora, p.getAnimal().getNome(), p.getAnimal().getTutor().getNome(), p.getTipo()};
+            
+            model.addRow(procedimento);             
+        }
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -1209,7 +1233,7 @@ public class TelaAgendamentos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
         }
         
-        procedimentoService.preencherTabelaAgendamentos(tbl, procedimentos);
+        preencherTabelaAgendamentos(tbl, procedimentos);
     }//GEN-LAST:event_cmbAnimalActionPerformed
 
     private void cmbTutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTutorActionPerformed
@@ -1238,7 +1262,7 @@ public class TelaAgendamentos extends javax.swing.JFrame {
         
         try{
             procedimentos = procedimentoService.filtrar(animalId, clientes.get(i).getId(), data, tipo);
-            procedimentoService.preencherTabelaAgendamentos(tbl, procedimentos);
+            preencherTabelaAgendamentos(tbl, procedimentos);
             animais.clear();
             animais = clienteService.filtrarAnimais(clientes.get(i));
         } catch(ClassNotFoundException | SQLException e){
@@ -1366,7 +1390,7 @@ public class TelaAgendamentos extends javax.swing.JFrame {
         procedimentos.clear();
         try{
             procedimentos = procedimentoService.filtrar(animalId, clienteId, data, tipo);
-            procedimentoService.preencherTabelaAgendamentos(tbl, procedimentos);  
+            preencherTabelaAgendamentos(tbl, procedimentos);  
         } catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
@@ -1408,7 +1432,7 @@ public class TelaAgendamentos extends javax.swing.JFrame {
         
         try{
             procedimentos = procedimentoService.filtrar(animalId, clienteId, data, tipo);
-            procedimentoService.preencherTabelaAgendamentos(tbl, procedimentos);
+            preencherTabelaAgendamentos(tbl, procedimentos);
         } catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
