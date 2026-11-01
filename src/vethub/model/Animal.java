@@ -11,17 +11,6 @@ public class Animal {
     private LocalDate dataNascimento;
     private Double peso;
     private Cliente tutor;
-
-    public Animal(int id, String nome, String especie, String sexo, String raca, LocalDate dataNascimento, Double peso, Cliente tutor) {
-        this.id = id;
-        this.nome = nome;
-        this.especie = especie;
-        this.sexo = sexo;
-        this.raca = raca;
-        this.dataNascimento = dataNascimento;
-        this.peso = peso;
-        this.tutor = tutor;
-    }
     
     public Animal(){
         this.tutor = new Cliente();

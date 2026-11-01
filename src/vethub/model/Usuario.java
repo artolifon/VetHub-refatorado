@@ -10,18 +10,6 @@ public class Usuario {
     private String login;
     private String senha;
     private String cargo;
-
-    public Usuario(int id, String nome, String cpf, String email, String telefone, Endereco endereco, String login, String senha, String cargo) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.email = email;
-        this.telefone = telefone;
-        this.endereco = endereco;
-        this.login = login;
-        this.senha = senha;
-        this.cargo = cargo;
-    }
     
     public Usuario(){
         

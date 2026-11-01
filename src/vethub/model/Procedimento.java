@@ -10,16 +10,6 @@ public class Procedimento {
   private Animal animal;
   private Usuario veterinario;
   private String anotacoes;
-
-    public Procedimento(int id, LocalDateTime dataHora, String tipo, String status, Animal animal, Usuario veterinario, String anotacoes) {
-        this.id = id;
-        this.dataHora = dataHora;
-        this.tipo = tipo;
-        this.status = status;
-        this.animal = animal;
-        this.veterinario = veterinario;
-        this.anotacoes = anotacoes;
-    }
     
     public Procedimento(){
         

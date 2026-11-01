@@ -7,15 +7,6 @@ public class Cliente {
     private String email;
     private String telefone;
     private Endereco endereco;
-
-    public Cliente(int id, String nome, String cpf, String email, String telefone, Endereco endereco) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.email = email;
-        this.telefone = telefone;
-        this.endereco = endereco;
-    }
     
     public Cliente(){
         this.endereco = new Endereco();
