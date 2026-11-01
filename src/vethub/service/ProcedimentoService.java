@@ -54,6 +54,11 @@ public class ProcedimentoService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         LocalDateTime dataHora = LocalDateTime.parse(data + " " + hora, formatter);
         
+        if(procedimento.getDataHora().equals(dataHora)){
+            procedimentoDao.editar(procedimento);
+            return;
+        }
+        
         if(!verificarDisponibilidade(dataHora)){
             throw new Exception("Este horário não está disponível.");
         }

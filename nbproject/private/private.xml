@@ -3,13 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Arthur/Desktop/PI/etapa%206/VetHub/src/vethub/service/ClienteService.java</file>
-            <file>file:/C:/Users/Arthur/Desktop/PI/etapa%206/VetHub/src/vethub/view/TelaClientes.java</file>
-            <file>file:/C:/Users/Arthur/Desktop/PI/etapa%206/VetHub/src/vethub/service/AnimalService.java</file>
-            <file>file:/C:/Users/Arthur/Desktop/PI/etapa%206/VetHub/src/vethub/view/TelaAnimais.java</file>
-            <file>file:/C:/Users/Arthur/Desktop/PI/etapa%206/VetHub/src/vethub/view/TelaLogin.java</file>
-            <file>file:/C:/Users/Arthur/Desktop/PI/etapa%206/VetHub/src/vethub/view/TelaPainel.java</file>
-            <file>file:/C:/Users/Arthur/Desktop/PI/etapa%206/VetHub/src/vethub/view/TelaUsuarios.java</file>
+            <file>file:/C:/Users/Arthur/Desktop/PI/etapa6/VetHub/src/vethub/view/TelaAgendamentos.java</file>
+            <file>file:/C:/Users/Arthur/Desktop/PI/etapa6/VetHub/src/vethub/view/TelaEditarAgendamento.java</file>
+            <file>file:/C:/Users/Arthur/Desktop/PI/etapa6/VetHub/src/vethub/service/ProcedimentoService.java</file>
+            <file>file:/C:/Users/Arthur/Desktop/PI/etapa6/VetHub/src/vethub/view/TelaEditarProcedimento.java</file>
+            <file>file:/C:/Users/Arthur/Desktop/PI/etapa6/VetHub/src/vethub/repository/ProcedimentoDAO.java</file>
         </group>
     </open-files>
 </project-private>

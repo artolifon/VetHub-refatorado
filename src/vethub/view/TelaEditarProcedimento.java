@@ -1021,6 +1021,7 @@ public class TelaEditarProcedimento extends javax.swing.JFrame {
             p.setStatus(status);
             p.setAnimal(animal);
             p.setVeterinario(usuario);
+            p.setDataHora(procedimento.getDataHora());
 
             procedimentoService.editar(p, data, hora);
             

@@ -1054,6 +1054,8 @@ public class TelaEditarAgendamento extends javax.swing.JFrame {
             agendamentoNovo.setStatus(status);
             agendamentoNovo.setAnimal(animal);
             agendamentoNovo.setAnotacoes(anotacoes);
+            agendamentoNovo.setDataHora(this.agendamento.getDataHora());
+            agendamentoNovo.setVeterinario(usuario);
             
             procedimentoService.editar(agendamentoNovo, data, hora);
             
