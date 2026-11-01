@@ -92,8 +92,6 @@ public class TelaPainelGerente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
         }
     }
-
-    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

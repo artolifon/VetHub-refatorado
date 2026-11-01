@@ -15,7 +15,6 @@ import vethub.service.ClienteService;
  * @author Arthur
  */
 public class TelaPainel extends javax.swing.JFrame {
-    
     private final Usuario usuario;
     private final MenuUtil menuService;
 
@@ -29,9 +28,7 @@ public class TelaPainel extends javax.swing.JFrame {
         this.usuario = usuario;
         this.menuService = new MenuUtil(usuario);
         
-        
         lblUsuario.setText(usuario.getNome());
-        
         
         if(usuario.getCargo().equals("ATENDENTE")){
             lblTitulo.setText("PAINEL DO ATENDENTE");
@@ -1560,7 +1557,6 @@ public class TelaPainel extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
     private void lblSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSairMouseClicked
         this.dispose();
         new TelaLogin().setVisible(true);

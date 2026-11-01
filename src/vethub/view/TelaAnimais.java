@@ -18,8 +18,7 @@ public class TelaAnimais extends javax.swing.JFrame {
     private final MenuUtil menuService;
     private final AnimalService animalService;
     private List<Animal> animais;
-    
-  
+
     public TelaAnimais(Usuario usuario) {
         initComponents();
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
@@ -1060,8 +1059,7 @@ public class TelaAnimais extends javax.swing.JFrame {
         } catch (Exception e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
-        }
-        
+        }  
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void rbTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbTodosActionPerformed
@@ -1080,8 +1078,7 @@ public class TelaAnimais extends javax.swing.JFrame {
                 System.out.println(e.getMessage());
                 JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
             }
-        }
-        
+        } 
     }//GEN-LAST:event_rbTodosActionPerformed
 
     private void rbCaesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCaesActionPerformed
@@ -1112,6 +1109,7 @@ public class TelaAnimais extends javax.swing.JFrame {
             if(animais != null){
             animais.clear();
             }
+            
             try{
                 animais = animalService.filtrarEspecie("Gato");
                 animalService.preencherTabela(tbl, animais, "animais");
@@ -1128,7 +1126,6 @@ public class TelaAnimais extends javax.swing.JFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if(tbl.getSelectedRow() == -1){
             JOptionPane.showMessageDialog(null, "Você deve selecionar uma linha.");
-            
         } else {
             int confirmacao = JOptionPane.showConfirmDialog(null, "Você deseja excluir o cadastro selecionado?");
             if(confirmacao == 0){
@@ -1231,7 +1228,6 @@ public class TelaAnimais extends javax.swing.JFrame {
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
         }
-          
     }//GEN-LAST:event_txtAnimalCaretUpdate
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

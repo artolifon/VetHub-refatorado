@@ -52,7 +52,6 @@ public class TelaAgendamentos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
         }
         
-        
         lblUsuario.setText(usuario.getNome());
         
         menuService.carregarMenu(btn7);
@@ -1369,9 +1368,7 @@ public class TelaAgendamentos extends javax.swing.JFrame {
         } catch (Exception e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
-        }
-        
-        
+        }    
     }//GEN-LAST:event_cmbProcedimentoActionPerformed
 
     private void txtDataCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtDataCaretUpdate
@@ -1414,8 +1411,6 @@ public class TelaAgendamentos extends javax.swing.JFrame {
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
         }
-        
-        
     }//GEN-LAST:event_txtDataCaretUpdate
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

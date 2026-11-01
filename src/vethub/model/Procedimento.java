@@ -80,6 +80,4 @@ public class Procedimento {
     public void setAnotacoes(String anotacoes) {
         this.anotacoes = anotacoes;
     }
-  
-  
 }

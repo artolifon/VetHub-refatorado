@@ -33,7 +33,6 @@ public class ProcedimentoDAO {
 
             String sql = "INSERT INTO procedimento (data_hora, tipo, `status`, anotacoes, usuario_id, animal_id) VALUES (?, ?, ?, ?, ?, ?)";
 
-
             ps = conn.prepareStatement(sql);
 
             ps.setTimestamp(1, Timestamp.valueOf(p.getDataHora()));
@@ -57,8 +56,6 @@ public class ProcedimentoDAO {
 
             String sql = "UPDATE procedimento SET data_hora = ?, tipo = ?, `status` = ?, anotacoes = ?, usuario_id = ?, animal_id = ? WHERE id = ?";
 
-
-
             ps = conn.prepareStatement(sql);
 
             ps.setTimestamp(1, Timestamp.valueOf(p.getDataHora()));
@@ -72,8 +69,7 @@ public class ProcedimentoDAO {
             ps.executeUpdate();    
         } finally {
             Conexao.desconectar(conn);
-        }
-        
+        }   
     }
     
     public List<Procedimento> buscarAgendamentos() throws ClassNotFoundException, SQLException{
@@ -82,12 +78,10 @@ public class ProcedimentoDAO {
             conn = Conexao.conectar();
         }
         
-        
         List<Procedimento> agendamentos = null;
         
         String sql = "SELECT * FROM procedimento WHERE `status` = 'agendada' "
                 + "ORDER BY data_hora DESC";
-        
         
         ps = conn.prepareStatement(sql);
 
@@ -114,8 +108,7 @@ public class ProcedimentoDAO {
         return agendamentos;    
         } finally {
             Conexao.desconectar(conn);
-        }
-        
+        }    
     }
     
     public boolean verificarDisponibilidade(LocalDateTime dataHora) throws ClassNotFoundException, SQLException{
@@ -126,7 +119,6 @@ public class ProcedimentoDAO {
 
             boolean disponibilidade = true;
             String sql = "SELECT * FROM procedimento WHERE data_hora = ?";
-
 
             ps = conn.prepareStatement(sql);
 
@@ -152,8 +144,6 @@ public class ProcedimentoDAO {
 
             String sql = "DELETE FROM procedimento WHERE id = ?";
 
-
-
             ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
             ps.executeUpdate();    
@@ -172,7 +162,6 @@ public class ProcedimentoDAO {
 
             String sql = "SELECT * FROM procedimento WHERE `status` = 'agendada' AND data_hora > NOW() "
                     + "ORDER BY data_hora DESC LIMIT 2";
-
 
             ps = conn.prepareStatement(sql);
 
@@ -214,7 +203,6 @@ public class ProcedimentoDAO {
             List<Procedimento> procedimentos = null;
 
             String sql;
-
 
             if(clienteId == -1){
                 sql = "SELECT p.* FROM procedimento AS p WHERE `status` = 'agendada' "
@@ -278,7 +266,6 @@ public class ProcedimentoDAO {
         } finally {
             Conexao.desconectar(conn);
         }
-        
     }
     
     public List<Procedimento> filtrarProntuario(int animalId, int veterinarioId, String data, String status, String tipo) throws ClassNotFoundException, SQLException{
@@ -289,9 +276,7 @@ public class ProcedimentoDAO {
 
             List<Procedimento> procedimentos = null;
 
-
             String sql;
-
 
             if(veterinarioId == -1){
                 sql = "SELECT * FROM procedimento "
@@ -322,7 +307,6 @@ public class ProcedimentoDAO {
                 ps.setString(3, "%" + tipo + "%");
                 ps.setInt(4, animalId);
                 ps.setInt(5, veterinarioId);
-
             }
 
             rs = ps.executeQuery();
@@ -351,7 +335,6 @@ public class ProcedimentoDAO {
         } finally {
             Conexao.desconectar(conn);
         }    
-        
     }
     
     public Procedimento buscarPorId(int id) throws ClassNotFoundException, SQLException{
@@ -361,7 +344,6 @@ public class ProcedimentoDAO {
             }
 
             Procedimento p = null;
-
 
             ps = conn.prepareStatement("SELECT p.*, a.*, c.*, u.* FROM procedimento AS p "
                     + "JOIN animal AS a ON p.animal_id = a.id "
@@ -419,7 +401,6 @@ public class ProcedimentoDAO {
         } finally {
             Conexao.desconectar(conn);
         }
-        
     }
     
     public List<Procedimento> buscarPorAnimal(Animal a) throws ClassNotFoundException, SQLException{
@@ -459,7 +440,5 @@ public class ProcedimentoDAO {
         } finally {
             Conexao.desconectar(conn);
         }
-        
     }
-    
 }

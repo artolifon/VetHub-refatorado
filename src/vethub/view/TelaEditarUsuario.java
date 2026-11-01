@@ -1088,9 +1088,7 @@ public class TelaEditarUsuario extends javax.swing.JFrame {
         } catch (Exception e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-        
-        
+        }    
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void lblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseClicked

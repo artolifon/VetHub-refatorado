@@ -41,7 +41,6 @@ public class UsuarioDAO {
                 ps.setString(7, u.getLogin());
                 ps.setString(8, u.getSenha());
                 ps.executeUpdate();
-                
             }    
         } finally {
             Conexao.desconectar(conn); 
@@ -116,7 +115,6 @@ public class UsuarioDAO {
     }
     
     public List<Usuario> buscarTodos() throws ClassNotFoundException, SQLException{
-        
         try{
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
@@ -157,7 +155,6 @@ public class UsuarioDAO {
         } finally {
             Conexao.desconectar(conn);
         }
-        
     }
     
     public Usuario buscarPorId(int id) throws ClassNotFoundException, SQLException{
@@ -193,7 +190,6 @@ public class UsuarioDAO {
                 u.setTelefone(rs.getString("u.telefone"));
                 u.setEndereco(e);
                 u.setCargo(rs.getString("u.cargo"));
-
             }
             return u;    
         } finally {
@@ -248,7 +244,6 @@ public class UsuarioDAO {
         } finally {
             Conexao.desconectar(conn);
         }
-        
     }
     
     public void editar(Usuario u) throws ClassNotFoundException, SQLException{
@@ -276,7 +271,6 @@ public class UsuarioDAO {
         } finally {
             Conexao.desconectar(conn);
         }
-        
     }
     
     public void excluir(int id) throws ClassNotFoundException, SQLException{
@@ -286,7 +280,6 @@ public class UsuarioDAO {
             }
 
             String sql = "DELETE FROM usuario WHERE id = ?";
-
 
             ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
@@ -330,8 +323,6 @@ public class UsuarioDAO {
 
             String sql = "SELECT COUNT(*) FROM usuario WHERE cargo = 'GERENTE'";
 
-
-
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
 
@@ -343,7 +334,6 @@ public class UsuarioDAO {
         } finally {
             Conexao.desconectar(conn);
         }
-        
     }
     
     public int contarAtendentes() throws ClassNotFoundException, SQLException{
@@ -355,9 +345,7 @@ public class UsuarioDAO {
             int quantidade = 0;
 
             String sql = "SELECT COUNT(*) FROM usuario WHERE cargo = 'ATENDENTE'";
-
-
-
+            
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
 
@@ -393,6 +381,5 @@ public class UsuarioDAO {
         } finally {
             Conexao.desconectar(conn);
         }
-        
     }
 }

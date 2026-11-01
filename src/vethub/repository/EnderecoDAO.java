@@ -44,6 +44,5 @@ public class EnderecoDAO {
         } finally {
             Conexao.desconectar(conn);
         }
-        
     }
 }

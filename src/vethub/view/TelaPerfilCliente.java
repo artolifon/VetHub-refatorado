@@ -14,7 +14,6 @@ import vethub.service.AnimalService;
  * @author Arthur
  */
 public class TelaPerfilCliente extends javax.swing.JFrame {
-    
     private final Usuario usuario;
     private final MenuUtil menuService;
     private final ClienteService clienteService;
@@ -1262,7 +1261,6 @@ public class TelaPerfilCliente extends javax.swing.JFrame {
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         if(tbl.getSelectedRow() == -1){
             JOptionPane.showMessageDialog(null, "Você deve selecionar uma linha.");
-            
         } else {
             int confirmacao = JOptionPane.showConfirmDialog(null, "Você deseja excluir o cadastro selecionado?");
             if(confirmacao == 0){
@@ -1348,8 +1346,7 @@ public class TelaPerfilCliente extends javax.swing.JFrame {
         } catch (Exception e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
-        }
-        
+        }    
     }//GEN-LAST:event_btnPrincipalActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -1388,8 +1385,7 @@ public class TelaPerfilCliente extends javax.swing.JFrame {
         } catch (Exception e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
-        }
-        
+        }    
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed

@@ -20,21 +20,16 @@ public class TelaLogin extends javax.swing.JFrame {
      * Creates new form LoginScreen
      */
     public TelaLogin() {
-        
         this.usuarioService = new UsuarioService();
         this.validador = new ValidadorService();
         
         initComponents();
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
         
-        
         txtLogin.requestFocusInWindow();
         
         getRootPane().setDefaultButton(btnEntrar);
-        
     }
-
-    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -344,7 +339,6 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtLoginActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        
         try {
             if(txtLogin.getText().isEmpty() || txtSenha.getText().isEmpty()){
                 JOptionPane.showMessageDialog(null, "Os campos devem ser preenchidos.");
@@ -366,8 +360,7 @@ public class TelaLogin extends javax.swing.JFrame {
         } catch (Exception e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-        
+        }    
     }//GEN-LAST:event_btnEntrarActionPerformed
 
 

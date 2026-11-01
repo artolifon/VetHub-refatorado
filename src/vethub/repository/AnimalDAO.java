@@ -31,9 +31,7 @@ public class AnimalDAO {
               conn = Conexao.conectar();
             }
        
-        
             animais.clear();
-
 
             ps = conn.prepareStatement("SELECT a.*, c.*, e.* FROM animal AS a JOIN cliente AS c ON a.cliente_id = c.id JOIN endereco AS e ON c.endereco_id = e.id");
             rs = ps.executeQuery();
@@ -82,8 +80,7 @@ public class AnimalDAO {
                conn = Conexao.conectar();
             }
 
-
-           if(conn != null){
+            if(conn != null){
 
                String sql = "INSERT INTO animal(nome, especie, sexo, raca, data_nascimento, peso, cliente_id) VALUES (?, ?, ?, ? , ?, ?, ?)";
 
@@ -150,8 +147,6 @@ public class AnimalDAO {
             }
             String sql = "UPDATE animal SET nome = ?, especie = ?, sexo = ?, raca = ?, data_nascimento = ?, peso = ?, cliente_id = ? WHERE id = ?";
 
-
-
             ps = conn.prepareStatement(sql);
 
             ps.setString(1, a.getNome());
@@ -186,8 +181,6 @@ public class AnimalDAO {
                 conn = Conexao.conectar();
             }
             animais.clear();
-
-
 
             String sql = "SELECT a.*, c.*, e.* FROM animal AS a "
                     + "JOIN cliente AS c ON a.cliente_id = c.id "
@@ -225,7 +218,6 @@ public class AnimalDAO {
                 animais.add(a);
             }  
 
-
             return animais;    
         } finally {
             Conexao.desconectar(conn);
@@ -238,9 +230,7 @@ public class AnimalDAO {
                 conn = Conexao.conectar();
             }
 
-
             Animal a = null;
-
 
             ps = conn.prepareStatement("SELECT a.*, c.* FROM animal AS a "
                     + "JOIN cliente AS c ON a.cliente_id = c.id WHERE a.id = ?");
@@ -283,7 +273,6 @@ public class AnimalDAO {
         } finally {
             Conexao.desconectar(conn);
         }
-        
     }
     
     public void excluir(int id) throws ClassNotFoundException, SQLException{
@@ -291,8 +280,7 @@ public class AnimalDAO {
             if(conn == null || conn.isClosed()){
                 conn = Conexao.conectar();
             }
-
-
+            
             String sql = "DELETE FROM animal WHERE id = ?";
 
 
@@ -311,13 +299,10 @@ public class AnimalDAO {
                 conn = Conexao.conectar();
             }
 
-
             animais.clear();
             String sql = "SELECT a.*, c.* FROM animal AS a "
                     + "JOIN cliente AS c ON a.cliente_id = c.id "
                     + "WHERE a.nome LIKE ?";
-
-
 
             ps = conn.prepareStatement(sql);
             ps.setString(1, "%" + nome + "%");
@@ -360,13 +345,9 @@ public class AnimalDAO {
                 conn = Conexao.conectar();
             }
 
-
             int quantidade = 0;
 
             String sql = "SELECT COUNT(*) FROM animal";
-
-
-
 
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -379,7 +360,6 @@ public class AnimalDAO {
         } finally {
             Conexao.desconectar(conn);
         }
-        
     }
     
     public int contarCaes()throws ClassNotFoundException, SQLException{
@@ -391,8 +371,6 @@ public class AnimalDAO {
             int quantidade = 0;
 
             String sql = "SELECT COUNT(*) FROM animal WHERE especie = 'Cão'";
-
-
 
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -429,6 +407,5 @@ public class AnimalDAO {
         } finally {
             Conexao.desconectar(conn);
         }
-        
     }
 }

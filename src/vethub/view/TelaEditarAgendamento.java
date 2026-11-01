@@ -28,7 +28,6 @@ public class TelaEditarAgendamento extends javax.swing.JFrame {
     private List<Animal> animais;
     private boolean inicializando;
     
-    
     /**
      * Creates new form TelaDashboardGerente
      */
@@ -1043,7 +1042,6 @@ public class TelaEditarAgendamento extends javax.swing.JFrame {
             String status = "agendada";
             String anotacoes = null;
             
-
             if(cmbAnimal.getSelectedIndex() == -1 || data.isEmpty() || hora.isEmpty() || cmbProcedimento.getSelectedIndex() == -1){
                 JOptionPane.showMessageDialog(null, "Todos os campos devem estar preenchidos.");
                 return;

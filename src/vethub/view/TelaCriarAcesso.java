@@ -917,7 +917,7 @@ public class TelaCriarAcesso extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
         } catch (Exception e){
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 

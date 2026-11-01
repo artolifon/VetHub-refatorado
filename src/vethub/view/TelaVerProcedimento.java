@@ -14,8 +14,6 @@ import vethub.service.ProcedimentoService;
  * @author Arthur
  */
 public class TelaVerProcedimento extends javax.swing.JFrame {
-    
-    
     private final Usuario usuario;
     private final MenuUtil menuService;
     private final ProcedimentoService procedimentoService;
@@ -86,7 +84,6 @@ public class TelaVerProcedimento extends javax.swing.JFrame {
         getRootPane().setDefaultButton(btnEditar);
         
         btnEditar.requestFocusInWindow();
-        
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

@@ -57,7 +57,6 @@ public class TelaNovoProcedimento extends javax.swing.JFrame {
         getRootPane().setDefaultButton(btnSalvar);
         
         txtData.requestFocusInWindow();
-                
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -1014,9 +1013,7 @@ public class TelaNovoProcedimento extends javax.swing.JFrame {
         } catch (Exception e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-        
-        
+        }    
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void lblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseClicked

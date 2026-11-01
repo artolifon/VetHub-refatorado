@@ -72,7 +72,6 @@ public class TelaNovoAgendamento extends javax.swing.JFrame {
         getRootPane().setDefaultButton(btnSalvar);
         
         cmbAnimal.requestFocusInWindow();
-        
     }
     
     public TelaNovoAgendamento(Usuario usuario, Animal animal) {
@@ -170,8 +169,6 @@ public class TelaNovoAgendamento extends javax.swing.JFrame {
         
         cmbAnimal.requestFocusInWindow();
     }
-    
-    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -1080,10 +1077,7 @@ public class TelaNovoAgendamento extends javax.swing.JFrame {
                 System.out.println(e.getMessage());
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
-            
-        }
-     
-        
+        }    
     }//GEN-LAST:event_cmbAnimalActionPerformed
 
     private void cmbTutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTutorActionPerformed
@@ -1115,9 +1109,7 @@ public class TelaNovoAgendamento extends javax.swing.JFrame {
         
         cmbAnimal.setSelectedIndex(-1);
         
-        inicializando = false;      
-        
-        
+        inicializando = false;          
     }//GEN-LAST:event_cmbTutorActionPerformed
 
     private void lblSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSairMouseClicked

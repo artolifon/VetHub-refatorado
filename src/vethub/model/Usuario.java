@@ -24,8 +24,7 @@ public class Usuario {
     }
     
     public Usuario(){
-        this.login = "vethub";
-        this.senha = "vethub";
+        
     }
  
     public int getId() {

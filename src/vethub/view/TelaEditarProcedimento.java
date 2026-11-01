@@ -15,7 +15,6 @@ import vethub.service.ProcedimentoService;
  */
 public class TelaEditarProcedimento extends javax.swing.JFrame {
     
-    
     private final Usuario usuario;
     private final MenuUtil menuService;
     private Procedimento procedimento;
@@ -42,7 +41,6 @@ public class TelaEditarProcedimento extends javax.swing.JFrame {
         String procedimentoString = procedimento.getTipo().substring(0,1).toUpperCase() + procedimento.getTipo().substring(1);
         
         lblNomeGrande.setText(animal.getNome());
-        
         
         String raca = "--";
         if(animal.getRaca() != null && !animal.getRaca().isEmpty()){
@@ -87,7 +85,6 @@ public class TelaEditarProcedimento extends javax.swing.JFrame {
         getRootPane().setDefaultButton(btnSalvar);
         
         txtData.requestFocusInWindow();
-        
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -1014,7 +1011,6 @@ public class TelaEditarProcedimento extends javax.swing.JFrame {
             String status = (String) cmbStatus.getSelectedItem();
             String anotacoes = txtAnotacoes.getText();
             
-
             if(data.isEmpty() || hora.isEmpty() || cmbProcedimento.getSelectedIndex() == -1 || cmbStatus.getSelectedIndex() == -1 || anotacoes.isEmpty()){
                 JOptionPane.showMessageDialog(null, "Todos os campos devem estar preenchidos.");
                 return;
@@ -1038,8 +1034,7 @@ public class TelaEditarProcedimento extends javax.swing.JFrame {
         } catch (Exception e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-       
+        }   
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

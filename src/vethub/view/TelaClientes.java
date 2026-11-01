@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import vethub.model.Usuario;
 import vethub.service.ClienteService;
+import java.util.ArrayList;
 
 /**
  *
@@ -26,7 +27,7 @@ public class TelaClientes extends javax.swing.JFrame {
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
         
         this.usuario = usuario;
-        this.clientes = clientes;
+        this.clientes = new ArrayList();
         this.menuService = new MenuUtil(usuario);
         this.clienteService = new ClienteService();
         
@@ -53,7 +54,6 @@ public class TelaClientes extends javax.swing.JFrame {
             btnAgendar.setEnabled(false);
         }
     }
-    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -989,8 +989,7 @@ public class TelaClientes extends javax.swing.JFrame {
         } catch (Exception e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
-        }
-        
+        }   
     }//GEN-LAST:event_btnPerfilActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -1009,8 +1008,7 @@ public class TelaClientes extends javax.swing.JFrame {
         } catch (Exception e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
-        }
-        
+        } 
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void lblSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSairMouseClicked

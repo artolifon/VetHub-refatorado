@@ -37,7 +37,6 @@ public class TelaCadastrarAnimal extends javax.swing.JFrame {
         this.clienteService = new ClienteService();
         this.animalService = new AnimalService();
         
-        
         lblUsuario.setText(usuario.getNome());
         
         cmbEspecie.addItem("Cão");
@@ -80,7 +79,6 @@ public class TelaCadastrarAnimal extends javax.swing.JFrame {
         this.clientes = new ArrayList();
         this.clienteService = new ClienteService();
         this.animalService = new AnimalService();
-        
         
         lblUsuario.setText(usuario.getNome());
         

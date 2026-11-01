@@ -44,13 +44,11 @@ public class TelaUsuarios extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
         }
         
-        
         usuarioService.preencherTabela(tbl, usuarios);
         
         getRootPane().setDefaultButton(btnNovo);
         
         txtUsuario.requestFocusInWindow();
-        
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -1027,7 +1025,6 @@ public class TelaUsuarios extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if(tbl.getSelectedRow() == -1){
             JOptionPane.showMessageDialog(null, "Você deve selecionar uma linha.");
@@ -1046,10 +1043,8 @@ public class TelaUsuarios extends javax.swing.JFrame {
         } catch (Exception e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
-        }
-        
+        }    
     }//GEN-LAST:event_btnEditarActionPerformed
-
     private void rbTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbTodosActionPerformed
         if(rbTodos.isSelected()){
             rbGerentes.setSelected(false);
@@ -1068,7 +1063,6 @@ public class TelaUsuarios extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
             }
         }
-        
     }//GEN-LAST:event_rbTodosActionPerformed
 
     private void rbGerentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbGerentesActionPerformed
@@ -1146,7 +1140,6 @@ public class TelaUsuarios extends javax.swing.JFrame {
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         if(tbl.getSelectedRow() == -1){
             JOptionPane.showMessageDialog(null, "Você deve selecionar uma linha.");
-        
         } else {
             int confirmacao = JOptionPane.showConfirmDialog(null, "Você deseja excluir o cadastro selecionado?");
             if(confirmacao == 0){
@@ -1227,7 +1220,6 @@ public class TelaUsuarios extends javax.swing.JFrame {
             
             usuarios = usuarioService.filtrar(busca, cargo);
             usuarioService.preencherTabela(tbl, usuarios);  
-            
         } catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
@@ -1240,7 +1232,6 @@ public class TelaUsuarios extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         if(tbl.getSelectedRow() == -1){
             JOptionPane.showMessageDialog(null, "Você deve selecionar uma linha.");
-        
         }
         
         int i = tbl.getSelectedRow();
@@ -1257,7 +1248,6 @@ public class TelaUsuarios extends javax.swing.JFrame {
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
         }
-        
     }//GEN-LAST:event_jButton4ActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

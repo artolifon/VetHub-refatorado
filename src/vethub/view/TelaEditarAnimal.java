@@ -62,7 +62,6 @@ public class TelaEditarAnimal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
         }
         
-        
         txtNome.setText(animal.getNome());
         txtRaca.setText(animal.getRaca());
         if(animal.getPeso() != null){
@@ -80,7 +79,6 @@ public class TelaEditarAnimal extends javax.swing.JFrame {
         
         txtNome.requestFocusInWindow();
     }
-
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -1184,7 +1182,6 @@ public class TelaEditarAnimal extends javax.swing.JFrame {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 data = LocalDate.parse(nascimento, formatter); 
             }
-
 
             Double pesoDouble = null;
 

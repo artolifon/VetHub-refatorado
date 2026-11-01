@@ -16,5 +16,9 @@ public class PermissaoService {
     public boolean temPermissaoGerente(){
         return usuario.getCargo().equals("GERENTE");
     }
+    
+    public boolean temPermissaoVeterinario(){
+        return usuario.getCargo().equals("VETERINARIO");
+    }
         
 }

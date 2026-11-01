@@ -35,8 +35,7 @@ public class TelaPerfilUsuario extends javax.swing.JFrame {
         
         if(!usuario.getCargo().equals("GERENTE")){
             btnEditar.setEnabled(false);
-            btnExcluir.setEnabled(false);
-            
+            btnExcluir.setEnabled(false);    
         }
         
         txtNome.setText(usuarioSelecionado.getNome());

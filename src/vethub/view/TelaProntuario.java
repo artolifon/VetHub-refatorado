@@ -17,10 +17,7 @@ import vethub.service.UsuarioService;
  * @author Arthur
  */
 public class TelaProntuario extends javax.swing.JFrame {
-    
-    
     private final Usuario usuario;
-
     private final Animal animal;
     private List<Procedimento> procedimentos;  
     private List<Usuario> veterinarios;
@@ -28,7 +25,6 @@ public class TelaProntuario extends javax.swing.JFrame {
     private final ProcedimentoService procedimentoService;
     private final UsuarioService usuarioService;
     private boolean inicializando;
-    
     
     /**
      * Creates new form TelaDashboardGerente
@@ -84,7 +80,6 @@ public class TelaProntuario extends javax.swing.JFrame {
         
         lblNomeGrande.setText(animal.getNome());
         
-        
         String idade = "--";
         String data = "--";
         
@@ -127,11 +122,9 @@ public class TelaProntuario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
         }
         
-        
         getRootPane().setDefaultButton(btnNovo);
         
         txtData.requestFocusInWindow();
-        
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -1518,6 +1511,7 @@ public class TelaProntuario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Você deve selecionar uma linha.");
             return;
         }
+        
         int i = tbl.getSelectedRow();
         
         try{
@@ -1540,6 +1534,7 @@ public class TelaProntuario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Você deve selecionar uma linha.");
             return;
         }
+        
         int i = tbl.getSelectedRow();
         
         try{
@@ -1552,8 +1547,7 @@ public class TelaProntuario extends javax.swing.JFrame {
         } catch (Exception e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
-        }
-        
+        }    
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void txtDataCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtDataCaretUpdate
@@ -1581,9 +1575,9 @@ public class TelaProntuario extends javax.swing.JFrame {
         if(cmbStatus.getSelectedIndex() != -1){
             status = (String) cmbStatus.getSelectedItem();
         }
-                
         
         procedimentos.clear();
+        
         try{
             procedimentos = procedimentoService.filtrarProntuario(animal.getId(), veterinarioId, data, status, tipo);
             procedimentoService.preencherTabela(tbl, procedimentos);
@@ -1593,8 +1587,7 @@ public class TelaProntuario extends javax.swing.JFrame {
         } catch (Exception e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
-        }
-        
+        }    
     }//GEN-LAST:event_txtDataCaretUpdate
 
     private void cmbProcedimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProcedimentoActionPerformed
@@ -1619,7 +1612,6 @@ public class TelaProntuario extends javax.swing.JFrame {
         if(cmbStatus.getSelectedIndex() != -1){
             status = (String) cmbStatus.getSelectedItem();
         }
-                
         
         procedimentos.clear();
         try{
@@ -1631,8 +1623,7 @@ public class TelaProntuario extends javax.swing.JFrame {
         } catch (Exception e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
-        }
-        
+        }    
     }//GEN-LAST:event_cmbProcedimentoActionPerformed
 
     private void cmbStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbStatusActionPerformed
@@ -1671,8 +1662,7 @@ public class TelaProntuario extends javax.swing.JFrame {
         } catch (Exception e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
-        }
-        
+        }    
     }//GEN-LAST:event_cmbStatusActionPerformed
 
     private void cmbResponsavelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbResponsavelActionPerformed
@@ -1697,7 +1687,6 @@ public class TelaProntuario extends javax.swing.JFrame {
         String data = txtData.getText();
         
         String status = (String) cmbStatus.getSelectedItem();
-                
         
         procedimentos.clear();
         try{
@@ -1709,8 +1698,7 @@ public class TelaProntuario extends javax.swing.JFrame {
         } catch (Exception e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro interno no sistema.");
-        }
-        
+        }    
     }//GEN-LAST:event_cmbResponsavelActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

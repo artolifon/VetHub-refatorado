@@ -32,9 +32,7 @@ public class ClienteDAO {
                 conn = Conexao.conectar();
             }
 
-
             clientes.clear();
-
 
             ps = conn.prepareStatement("SELECT c.*, e.* FROM cliente AS c JOIN endereco AS e ON c.endereco_id = e.id");
 
@@ -65,7 +63,6 @@ public class ClienteDAO {
         } finally {
             Conexao.desconectar(conn);
         }
-        
     }
     
     public Cliente buscarPorId(int id) throws ClassNotFoundException, SQLException{
@@ -74,9 +71,7 @@ public class ClienteDAO {
                 conn = Conexao.conectar();
             }
 
-
             Cliente c = null;
-
 
             String sql = "SELECT c.*, e.* FROM cliente AS c JOIN endereco AS e ON c.endereco_id = e.id WHERE c.id = ?";
             ps = conn.prepareStatement(sql);
@@ -108,7 +103,6 @@ public class ClienteDAO {
         } finally {
             Conexao.desconectar(conn);
         }
-        
     }
     
     public List<Animal> filtrarAnimais(Cliente tutor) throws ClassNotFoundException, SQLException{
@@ -120,7 +114,6 @@ public class ClienteDAO {
             List<Animal> animais = null;
 
             String sql = "SELECT * FROM animal WHERE cliente_id = ?";
-
 
             ps = conn.prepareStatement(sql);
 
@@ -150,7 +143,6 @@ public class ClienteDAO {
         } finally {
             Conexao.desconectar(conn);
         }
-        
     }
     
     public void cadastrar(Cliente c) throws ClassNotFoundException, SQLException{
@@ -182,12 +174,10 @@ public class ClienteDAO {
                 conn = Conexao.conectar();
             }
 
-
             String sql = "UPDATE cliente SET nome = ?, cpf = ?, email = ?, telefone = ?, endereco_id = ? WHERE id = ?";
 
             EnderecoService es = new EnderecoService();
             Endereco e = c.getEndereco();
-
 
             int enderecoId = es.cadastrar(e);
 
@@ -202,8 +192,7 @@ public class ClienteDAO {
             ps.executeUpdate();    
         } finally {
             Conexao.desconectar(conn);
-        }
-        
+        }  
     }
     
     public void excluir(int id) throws ClassNotFoundException, SQLException{
@@ -214,7 +203,6 @@ public class ClienteDAO {
 
             String sql = "DELETE FROM cliente WHERE id = ?";
 
-
             ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
             ps.executeUpdate();    
@@ -224,29 +212,26 @@ public class ClienteDAO {
     }
     
     public int contarTodos() throws ClassNotFoundException, SQLException{
-    try{
-        if(conn == null || conn.isClosed()){
-            conn = Conexao.conectar();
-        }
+        try{
+            if(conn == null || conn.isClosed()){
+                conn = Conexao.conectar();
+            }
 
+            int quantidade = 0;
 
-        int quantidade = 0;
+            String sql = "SELECT COUNT(*) FROM cliente";
 
-        String sql = "SELECT COUNT(*) FROM cliente";
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
 
+            if(rs.next()){
+                quantidade = rs.getInt(1);
+            }  
 
-        ps = conn.prepareStatement(sql);
-        rs = ps.executeQuery();
-
-        if(rs.next()){
-            quantidade = rs.getInt(1);
-        }  
-
-            return quantidade;        
-    } finally {
-        Conexao.desconectar(conn);
-    }    
-    
+                return quantidade;        
+        } finally {
+            Conexao.desconectar(conn);
+        }    
     }
     
     public int contarComPets() throws ClassNotFoundException, SQLException{
@@ -259,8 +244,6 @@ public class ClienteDAO {
 
             String sql = "SELECT COUNT(DISTINCT cliente_id) FROM animal";
 
-
-
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
 
@@ -272,7 +255,6 @@ public class ClienteDAO {
         } finally {
             Conexao.desconectar(conn);
         }
-        
     }
     
     public int contarSemPets() throws ClassNotFoundException, SQLException{
@@ -288,8 +270,6 @@ public class ClienteDAO {
             clientes.clear();
             String sql = "SELECT * FROM cliente WHERE nome LIKE ?";
 
-
-
             ps = conn.prepareStatement(sql);
             ps.setString(1, "%" + nome + "%");
 
@@ -303,7 +283,6 @@ public class ClienteDAO {
                 c.setCpf(rs.getString("cpf"));
                 c.setEmail(rs.getString("email"));
                 c.setTelefone(rs.getString("telefone"));
-
 
                 clientes.add(c);
             }   
