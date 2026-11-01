@@ -7,6 +7,8 @@ import javax.swing.JOptionPane;
 import vethub.model.Usuario;
 import vethub.service.ClienteService;
 import java.util.ArrayList;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -35,7 +37,7 @@ public class TelaClientes extends javax.swing.JFrame {
         
         try{
             clientes = clienteService.buscarTodos();
-            clienteService.preencherTabela(tbl, clientes); 
+            preencherTabela(tbl, clientes); 
         } catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
@@ -52,6 +54,22 @@ public class TelaClientes extends javax.swing.JFrame {
         
         if(usuario.getCargo().equals("VETERINARIO")){
             btnAgendar.setEnabled(false);
+        }
+    }
+    public void preencherTabela(JTable table, List<Cliente> clientes){
+        if(clientes == null){
+            return;
+        }
+        
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        
+        model.setRowCount(0);
+        
+        for(Cliente c : clientes){
+            
+            String[] linha = {c.getNome(), c.getCpf(), c.getEmail(), c.getTelefone(), c.getEndereco().toString()};
+            
+            model.addRow(linha);
         }
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -1091,7 +1109,7 @@ public class TelaClientes extends javax.swing.JFrame {
             clientes.clear();
             
             clientes = clienteService.filtrarPorNome(busca);
-            clienteService.preencherTabela(tbl, clientes);  
+            preencherTabela(tbl, clientes);  
             
         } catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());

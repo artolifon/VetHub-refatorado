@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import vethub.model.Usuario;
 import vethub.service.AnimalService;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import vethub.service.PermissaoService;
 
 /**
  *
@@ -33,7 +36,7 @@ public class TelaAnimais extends javax.swing.JFrame {
         try{
             animais = animalService.buscarTodos();  
             if(animais != null){
-            animalService.preencherTabela(tbl, animais, "animais");
+            preencherTabela(tbl, animais);
             }
         } catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
@@ -60,6 +63,46 @@ public class TelaAnimais extends javax.swing.JFrame {
         getRootPane().setDefaultButton(btnPrincipal);
     }
     
+    public void preencherTabela(JTable table, List<Animal> lista) throws ClassNotFoundException, SQLException{
+        if(lista == null){
+            return;
+        }
+        
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        
+        model.setRowCount(0);
+        
+        for(Animal a : lista){
+            
+            String idade = "";
+            int idadeInt;
+            String palavra;
+            
+            if(a.getDataNascimento() != null){
+               idadeInt = animalService.calcularIdade(a.getDataNascimento());
+               if(idadeInt == 0){
+                    palavra = "";
+                } else {
+                    palavra = idadeInt > 1? " anos" : " ano";
+                }
+               idade = String.valueOf(idadeInt) + palavra;
+            }
+            
+            String peso = "";
+            
+            if(a.getPeso() != null){
+                peso = String.valueOf(a.getPeso());
+            }
+            
+            String[] linha = null;
+            
+            
+            linha = new String[]{a.getNome(), a.getEspecie(), idade, a.getTutor().getNome()};
+            
+            
+            model.addRow(linha);
+        }
+    }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -1070,7 +1113,7 @@ public class TelaAnimais extends javax.swing.JFrame {
             animais.clear();
             try{
                 animais = animalService.buscarTodos();
-                animalService.preencherTabela(tbl, animais, "animais");
+                preencherTabela(tbl, animais);
             } catch(ClassNotFoundException | SQLException e){
                 System.out.println(e.getMessage());
                 JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
@@ -1090,7 +1133,7 @@ public class TelaAnimais extends javax.swing.JFrame {
             
             try{
                 animais = animalService.filtrarEspecie("Cão");
-                animalService.preencherTabela(tbl, animais, "animais");
+                preencherTabela(tbl, animais);
             } catch(ClassNotFoundException | SQLException e){
                 System.out.println(e.getMessage());
                 JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
@@ -1112,7 +1155,7 @@ public class TelaAnimais extends javax.swing.JFrame {
             
             try{
                 animais = animalService.filtrarEspecie("Gato");
-                animalService.preencherTabela(tbl, animais, "animais");
+                preencherTabela(tbl, animais);
             } catch(ClassNotFoundException | SQLException e){
                 System.out.println(e.getMessage());
                 JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");
@@ -1138,7 +1181,7 @@ public class TelaAnimais extends javax.swing.JFrame {
                     animais.clear();
                     animais = animalService.buscarTodos();
 
-                    animalService.preencherTabela(tbl, animais, "animais");
+                    preencherTabela(tbl, animais);
                     JOptionPane.showMessageDialog(null, "Animal excluído com sucesso.");
                 } catch(ClassNotFoundException | SQLException e){
                     System.out.println(e.getMessage());
@@ -1220,7 +1263,7 @@ public class TelaAnimais extends javax.swing.JFrame {
             animais.clear();
             
             animais = animalService.filtrarPorNome(busca);
-            animalService.preencherTabela(tbl, animais, "animais");  
+            preencherTabela(tbl, animais);  
         } catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Erro na conexão com o banco de dados.");

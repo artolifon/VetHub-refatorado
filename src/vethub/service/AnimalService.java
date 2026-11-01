@@ -5,8 +5,6 @@ import java.time.Period;
 import vethub.model.Animal;
 import vethub.model.Cliente;
 import java.util.List;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import vethub.repository.AnimalDAO;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -77,51 +75,6 @@ public class AnimalService {
     
     public List<Animal> filtrarEspecie(String especie) throws ClassNotFoundException, SQLException{
         return animalDao.filtrarEspecie(especie);
-    }
-    
-    public void preencherTabela(JTable table, List<Animal> lista, String tela) throws ClassNotFoundException, SQLException{
-        if(lista == null){
-            return;
-        }
-        
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        
-        model.setRowCount(0);
-        
-        for(Animal a : lista){
-            
-            String idade = "";
-            int idadeInt;
-            String palavra;
-            
-            if(a.getDataNascimento() != null){
-               idadeInt = calcularIdade(a.getDataNascimento());
-               if(idadeInt == 0){
-                    palavra = "";
-                } else {
-                    palavra = idadeInt > 1? " anos" : " ano";
-                }
-               idade = String.valueOf(idadeInt) + palavra;
-            }
-            
-            String peso = "";
-            
-            if(a.getPeso() != null){
-                peso = String.valueOf(a.getPeso());
-            }
-            
-            
-            String[] linha = null;
-            
-            if(tela.equals("animais")){
-                linha = new String[]{a.getNome(), a.getEspecie(), idade, a.getTutor().getNome()};
-                
-            } else if (tela.equals("cliente")){
-                linha = new String[]{a.getNome(), a.getEspecie(), idade, peso};
-            }
-            
-            model.addRow(linha);
-        }
     }
     
     public Animal buscarPorId(int id) throws ClassNotFoundException, SQLException{

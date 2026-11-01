@@ -4,8 +4,6 @@ import java.sql.SQLException;
 import vethub.model.Cliente;
 import java.util.List;
 import vethub.model.Animal;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import vethub.repository.ClienteDAO;
 
 /**
@@ -66,23 +64,6 @@ public class ClienteService {
     
     public void excluir(int id) throws ClassNotFoundException, SQLException{
         clienteDao.excluir(id);
-    }
-    
-    public void preencherTabela(JTable table, List<Cliente> clientes){
-        if(clientes == null){
-            return;
-        }
-        
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        
-        model.setRowCount(0);
-        
-        for(Cliente c : clientes){
-            
-            String[] linha = {c.getNome(), c.getCpf(), c.getEmail(), c.getTelefone(), c.getEndereco().toString()};
-            
-            model.addRow(linha);
-        }
     }
     
     public int contarTodos()throws ClassNotFoundException, SQLException{
